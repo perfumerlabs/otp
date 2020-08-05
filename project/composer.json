@@ -1,0 +1,40 @@
+{
+    "name": "perfumerlabs/otp",
+    "type": "library",
+    "description": "Docker container for sms, email one time passwords",
+    "homepage": "https://perfumerlabs.com",
+    "authors": [
+        {
+            "name": "Ilyas Makashev",
+            "email": "mehmatovec@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "perfumer/framework": "0.8.5",
+        "propel/propel": "2.0.0-alpha8",
+        "pwfisher/command-line-php": "dev-master",
+        "symfony/console": "*",
+        "symfony/http-foundation": "*",
+        "nikic/fast-route": "1.*",
+        "guzzlehttp/guzzle": "6.*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "filp/whoops": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Project\\": "src/",
+            "Otp\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}

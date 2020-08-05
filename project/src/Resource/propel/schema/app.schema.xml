@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="otp" defaultIdMethod="native" namespace="Otp\Model">
+    <table name="otp" phpName="Otp">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="channel" type="enum" valueSet="sms,email"/>
+        <column name="target" type="varchar" size="255"/>
+        <column name="password" type="varchar" size="255"/>
+        <column name="expire_at" type="timestamp"/>
+        <index>
+            <index-column name="target"/>
+            <index-column name="password"/>
+        </index>
+        <index>
+            <index-column name="expire_at"/>
+        </index>
+        <behavior name="timestampable">
+            <parameter name="disable_updated_at" value="true" />
+        </behavior>
+    </table>
+</database>
