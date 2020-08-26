@@ -4,9 +4,11 @@ namespace Otp\Controller;
 
 class ErrorController extends LayoutController
 {
-    public function badRequest($message)
+    public function badRequest($message, $status_code = null)
     {
         $this->getExternalResponse()->setStatusCode(400);
+
+        $this->setStatusCode($status_code);
 
         $this->setErrorMessage($message);
     }

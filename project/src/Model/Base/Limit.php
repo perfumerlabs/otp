@@ -2,11 +2,10 @@
 
 namespace Otp\Model\Base;
 
-use \DateTime;
 use \Exception;
 use \PDO;
-use Otp\Model\OtpQuery as ChildOtpQuery;
-use Otp\Model\Map\OtpTableMap;
+use Otp\Model\LimitQuery as ChildLimitQuery;
+use Otp\Model\Map\LimitTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
@@ -18,21 +17,20 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Propel\Runtime\Util\PropelDateTime;
 
 /**
- * Base class that represents a row from the 'otp' table.
+ * Base class that represents a row from the '_limit' table.
  *
  *
  *
  * @package    propel.generator..Base
  */
-abstract class Otp implements ActiveRecordInterface
+abstract class Limit implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Otp\\Model\\Map\\OtpTableMap';
+    const TABLE_MAP = '\\Otp\\Model\\Map\\LimitTableMap';
 
 
     /**
@@ -76,39 +74,25 @@ abstract class Otp implements ActiveRecordInterface
     protected $channel;
 
     /**
-     * The value for the target field.
+     * The value for the measure field.
      *
-     * @var        string
+     * @var        int
      */
-    protected $target;
+    protected $measure;
 
     /**
-     * The value for the password field.
+     * The value for the rate field.
      *
-     * @var        string
+     * @var        int
      */
-    protected $password;
+    protected $rate;
 
     /**
-     * The value for the ip field.
+     * The value for the minutes field.
      *
-     * @var        string
+     * @var        int
      */
-    protected $ip;
-
-    /**
-     * The value for the expire_at field.
-     *
-     * @var        DateTime
-     */
-    protected $expire_at;
-
-    /**
-     * The value for the created_at field.
-     *
-     * @var        DateTime
-     */
-    protected $created_at;
+    protected $minutes;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -119,7 +103,7 @@ abstract class Otp implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Otp\Model\Base\Otp object.
+     * Initializes internal state of Otp\Model\Base\Limit object.
      */
     public function __construct()
     {
@@ -214,9 +198,9 @@ abstract class Otp implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>Otp</code> instance.  If
-     * <code>obj</code> is an instance of <code>Otp</code>, delegates to
-     * <code>equals(Otp)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>Limit</code> instance.  If
+     * <code>obj</code> is an instance of <code>Limit</code>, delegates to
+     * <code>equals(Limit)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -282,7 +266,7 @@ abstract class Otp implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Otp The current object, for fluid interface
+     * @return $this|Limit The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -364,7 +348,7 @@ abstract class Otp implements ActiveRecordInterface
         if (null === $this->channel) {
             return null;
         }
-        $valueSet = OtpTableMap::getValueSet(OtpTableMap::COL_CHANNEL);
+        $valueSet = LimitTableMap::getValueSet(LimitTableMap::COL_CHANNEL);
         if (!isset($valueSet[$this->channel])) {
             throw new PropelException('Unknown stored enum key: ' . $this->channel);
         }
@@ -373,80 +357,49 @@ abstract class Otp implements ActiveRecordInterface
     }
 
     /**
-     * Get the [target] column value.
+     * Get the [measure] column value.
      *
      * @return string
+     * @throws \Propel\Runtime\Exception\PropelException
      */
-    public function getTarget()
+    public function getMeasure()
     {
-        return $this->target;
-    }
-
-    /**
-     * Get the [password] column value.
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Get the [ip] column value.
-     *
-     * @return string
-     */
-    public function getIp()
-    {
-        return $this->ip;
-    }
-
-    /**
-     * Get the [optionally formatted] temporal [expire_at] column value.
-     *
-     *
-     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getExpireAt($format = NULL)
-    {
-        if ($format === null) {
-            return $this->expire_at;
-        } else {
-            return $this->expire_at instanceof \DateTimeInterface ? $this->expire_at->format($format) : null;
+        if (null === $this->measure) {
+            return null;
         }
+        $valueSet = LimitTableMap::getValueSet(LimitTableMap::COL_MEASURE);
+        if (!isset($valueSet[$this->measure])) {
+            throw new PropelException('Unknown stored enum key: ' . $this->measure);
+        }
+
+        return $valueSet[$this->measure];
     }
 
     /**
-     * Get the [optionally formatted] temporal [created_at] column value.
+     * Get the [rate] column value.
      *
-     *
-     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
+     * @return int
      */
-    public function getCreatedAt($format = NULL)
+    public function getRate()
     {
-        if ($format === null) {
-            return $this->created_at;
-        } else {
-            return $this->created_at instanceof \DateTimeInterface ? $this->created_at->format($format) : null;
-        }
+        return $this->rate;
+    }
+
+    /**
+     * Get the [minutes] column value.
+     *
+     * @return int
+     */
+    public function getMinutes()
+    {
+        return $this->minutes;
     }
 
     /**
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @return $this|\Otp\Model\Limit The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -456,7 +409,7 @@ abstract class Otp implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[OtpTableMap::COL_ID] = true;
+            $this->modifiedColumns[LimitTableMap::COL_ID] = true;
         }
 
         return $this;
@@ -466,13 +419,13 @@ abstract class Otp implements ActiveRecordInterface
      * Set the value of [channel] column.
      *
      * @param  string $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @return $this|\Otp\Model\Limit The current object (for fluent API support)
      * @throws \Propel\Runtime\Exception\PropelException
      */
     public function setChannel($v)
     {
         if ($v !== null) {
-            $valueSet = OtpTableMap::getValueSet(OtpTableMap::COL_CHANNEL);
+            $valueSet = LimitTableMap::getValueSet(LimitTableMap::COL_CHANNEL);
             if (!in_array($v, $valueSet)) {
                 throw new PropelException(sprintf('Value "%s" is not accepted in this enumerated column', $v));
             }
@@ -481,111 +434,76 @@ abstract class Otp implements ActiveRecordInterface
 
         if ($this->channel !== $v) {
             $this->channel = $v;
-            $this->modifiedColumns[OtpTableMap::COL_CHANNEL] = true;
+            $this->modifiedColumns[LimitTableMap::COL_CHANNEL] = true;
         }
 
         return $this;
     } // setChannel()
 
     /**
-     * Set the value of [target] column.
+     * Set the value of [measure] column.
      *
-     * @param string $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @param  string $v new value
+     * @return $this|\Otp\Model\Limit The current object (for fluent API support)
+     * @throws \Propel\Runtime\Exception\PropelException
      */
-    public function setTarget($v)
+    public function setMeasure($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->target !== $v) {
-            $this->target = $v;
-            $this->modifiedColumns[OtpTableMap::COL_TARGET] = true;
-        }
-
-        return $this;
-    } // setTarget()
-
-    /**
-     * Set the value of [password] column.
-     *
-     * @param string $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
-     */
-    public function setPassword($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->password !== $v) {
-            $this->password = $v;
-            $this->modifiedColumns[OtpTableMap::COL_PASSWORD] = true;
-        }
-
-        return $this;
-    } // setPassword()
-
-    /**
-     * Set the value of [ip] column.
-     *
-     * @param string $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
-     */
-    public function setIp($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->ip !== $v) {
-            $this->ip = $v;
-            $this->modifiedColumns[OtpTableMap::COL_IP] = true;
-        }
-
-        return $this;
-    } // setIp()
-
-    /**
-     * Sets the value of [expire_at] column to a normalized version of the date/time value specified.
-     *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
-     */
-    public function setExpireAt($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->expire_at !== null || $dt !== null) {
-            if ($this->expire_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->expire_at->format("Y-m-d H:i:s.u")) {
-                $this->expire_at = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[OtpTableMap::COL_EXPIRE_AT] = true;
+            $valueSet = LimitTableMap::getValueSet(LimitTableMap::COL_MEASURE);
+            if (!in_array($v, $valueSet)) {
+                throw new PropelException(sprintf('Value "%s" is not accepted in this enumerated column', $v));
             }
-        } // if either are not null
+            $v = array_search($v, $valueSet);
+        }
+
+        if ($this->measure !== $v) {
+            $this->measure = $v;
+            $this->modifiedColumns[LimitTableMap::COL_MEASURE] = true;
+        }
 
         return $this;
-    } // setExpireAt()
+    } // setMeasure()
 
     /**
-     * Sets the value of [created_at] column to a normalized version of the date/time value specified.
+     * Set the value of [rate] column.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @param int $v new value
+     * @return $this|\Otp\Model\Limit The current object (for fluent API support)
      */
-    public function setCreatedAt($v)
+    public function setRate($v)
     {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->created_at !== null || $dt !== null) {
-            if ($this->created_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->created_at->format("Y-m-d H:i:s.u")) {
-                $this->created_at = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[OtpTableMap::COL_CREATED_AT] = true;
-            }
-        } // if either are not null
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->rate !== $v) {
+            $this->rate = $v;
+            $this->modifiedColumns[LimitTableMap::COL_RATE] = true;
+        }
 
         return $this;
-    } // setCreatedAt()
+    } // setRate()
+
+    /**
+     * Set the value of [minutes] column.
+     *
+     * @param int $v new value
+     * @return $this|\Otp\Model\Limit The current object (for fluent API support)
+     */
+    public function setMinutes($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->minutes !== $v) {
+            $this->minutes = $v;
+            $this->modifiedColumns[LimitTableMap::COL_MINUTES] = true;
+        }
+
+        return $this;
+    } // setMinutes()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -623,26 +541,20 @@ abstract class Otp implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : OtpTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : LimitTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : OtpTableMap::translateFieldName('Channel', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : LimitTableMap::translateFieldName('Channel', TableMap::TYPE_PHPNAME, $indexType)];
             $this->channel = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : OtpTableMap::translateFieldName('Target', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->target = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : LimitTableMap::translateFieldName('Measure', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->measure = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : OtpTableMap::translateFieldName('Password', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->password = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : LimitTableMap::translateFieldName('Rate', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->rate = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : OtpTableMap::translateFieldName('Ip', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->ip = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : OtpTableMap::translateFieldName('ExpireAt', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->expire_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : OtpTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : LimitTableMap::translateFieldName('Minutes', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->minutes = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -651,10 +563,10 @@ abstract class Otp implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = OtpTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 5; // 5 = LimitTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Otp\\Model\\Otp'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Otp\\Model\\Limit'), 0, $e);
         }
     }
 
@@ -696,13 +608,13 @@ abstract class Otp implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(LimitTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildOtpQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildLimitQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -721,8 +633,8 @@ abstract class Otp implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see Otp::setDeleted()
-     * @see Otp::isDeleted()
+     * @see Limit::setDeleted()
+     * @see Limit::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -731,11 +643,11 @@ abstract class Otp implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LimitTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildOtpQuery::create()
+            $deleteQuery = ChildLimitQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -770,7 +682,7 @@ abstract class Otp implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LimitTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -778,12 +690,6 @@ abstract class Otp implements ActiveRecordInterface
             $isInsert = $this->isNew();
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
-                // timestampable behavior
-                $time = time();
-                $highPrecision = \Propel\Runtime\Util\PropelDateTime::createHighPrecision();
-                if (!$this->isColumnModified(OtpTableMap::COL_CREATED_AT)) {
-                    $this->setCreatedAt($highPrecision);
-                }
             } else {
                 $ret = $ret && $this->preUpdate($con);
             }
@@ -795,7 +701,7 @@ abstract class Otp implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                OtpTableMap::addInstanceToPool($this);
+                LimitTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -852,13 +758,13 @@ abstract class Otp implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[OtpTableMap::COL_ID] = true;
+        $this->modifiedColumns[LimitTableMap::COL_ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . OtpTableMap::COL_ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . LimitTableMap::COL_ID . ')');
         }
         if (null === $this->id) {
             try {
-                $dataFetcher = $con->query("SELECT nextval('otp_id_seq')");
+                $dataFetcher = $con->query("SELECT nextval('_limit_id_seq')");
                 $this->id = (int) $dataFetcher->fetchColumn();
             } catch (Exception $e) {
                 throw new PropelException('Unable to get sequence id.', 0, $e);
@@ -867,30 +773,24 @@ abstract class Otp implements ActiveRecordInterface
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(OtpTableMap::COL_ID)) {
+        if ($this->isColumnModified(LimitTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'id';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_CHANNEL)) {
+        if ($this->isColumnModified(LimitTableMap::COL_CHANNEL)) {
             $modifiedColumns[':p' . $index++]  = 'channel';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_TARGET)) {
-            $modifiedColumns[':p' . $index++]  = 'target';
+        if ($this->isColumnModified(LimitTableMap::COL_MEASURE)) {
+            $modifiedColumns[':p' . $index++]  = 'measure';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_PASSWORD)) {
-            $modifiedColumns[':p' . $index++]  = 'password';
+        if ($this->isColumnModified(LimitTableMap::COL_RATE)) {
+            $modifiedColumns[':p' . $index++]  = 'rate';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_IP)) {
-            $modifiedColumns[':p' . $index++]  = 'ip';
-        }
-        if ($this->isColumnModified(OtpTableMap::COL_EXPIRE_AT)) {
-            $modifiedColumns[':p' . $index++]  = 'expire_at';
-        }
-        if ($this->isColumnModified(OtpTableMap::COL_CREATED_AT)) {
-            $modifiedColumns[':p' . $index++]  = 'created_at';
+        if ($this->isColumnModified(LimitTableMap::COL_MINUTES)) {
+            $modifiedColumns[':p' . $index++]  = 'minutes';
         }
 
         $sql = sprintf(
-            'INSERT INTO otp (%s) VALUES (%s)',
+            'INSERT INTO _limit (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -905,20 +805,14 @@ abstract class Otp implements ActiveRecordInterface
                     case 'channel':
                         $stmt->bindValue($identifier, $this->channel, PDO::PARAM_INT);
                         break;
-                    case 'target':
-                        $stmt->bindValue($identifier, $this->target, PDO::PARAM_STR);
+                    case 'measure':
+                        $stmt->bindValue($identifier, $this->measure, PDO::PARAM_INT);
                         break;
-                    case 'password':
-                        $stmt->bindValue($identifier, $this->password, PDO::PARAM_STR);
+                    case 'rate':
+                        $stmt->bindValue($identifier, $this->rate, PDO::PARAM_INT);
                         break;
-                    case 'ip':
-                        $stmt->bindValue($identifier, $this->ip, PDO::PARAM_STR);
-                        break;
-                    case 'expire_at':
-                        $stmt->bindValue($identifier, $this->expire_at ? $this->expire_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
-                        break;
-                    case 'created_at':
-                        $stmt->bindValue($identifier, $this->created_at ? $this->created_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                    case 'minutes':
+                        $stmt->bindValue($identifier, $this->minutes, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -959,7 +853,7 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = OtpTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = LimitTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -982,19 +876,13 @@ abstract class Otp implements ActiveRecordInterface
                 return $this->getChannel();
                 break;
             case 2:
-                return $this->getTarget();
+                return $this->getMeasure();
                 break;
             case 3:
-                return $this->getPassword();
+                return $this->getRate();
                 break;
             case 4:
-                return $this->getIp();
-                break;
-            case 5:
-                return $this->getExpireAt();
-                break;
-            case 6:
-                return $this->getCreatedAt();
+                return $this->getMinutes();
                 break;
             default:
                 return null;
@@ -1019,28 +907,18 @@ abstract class Otp implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
     {
 
-        if (isset($alreadyDumpedObjects['Otp'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['Limit'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Otp'][$this->hashCode()] = true;
-        $keys = OtpTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['Limit'][$this->hashCode()] = true;
+        $keys = LimitTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getChannel(),
-            $keys[2] => $this->getTarget(),
-            $keys[3] => $this->getPassword(),
-            $keys[4] => $this->getIp(),
-            $keys[5] => $this->getExpireAt(),
-            $keys[6] => $this->getCreatedAt(),
+            $keys[2] => $this->getMeasure(),
+            $keys[3] => $this->getRate(),
+            $keys[4] => $this->getMinutes(),
         );
-        if ($result[$keys[5]] instanceof \DateTimeInterface) {
-            $result[$keys[5]] = $result[$keys[5]]->format('c');
-        }
-
-        if ($result[$keys[6]] instanceof \DateTimeInterface) {
-            $result[$keys[6]] = $result[$keys[6]]->format('c');
-        }
-
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
             $result[$key] = $virtualColumn;
@@ -1059,11 +937,11 @@ abstract class Otp implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Otp\Model\Otp
+     * @return $this|\Otp\Model\Limit
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = OtpTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = LimitTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -1074,7 +952,7 @@ abstract class Otp implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Otp\Model\Otp
+     * @return $this|\Otp\Model\Limit
      */
     public function setByPosition($pos, $value)
     {
@@ -1083,26 +961,24 @@ abstract class Otp implements ActiveRecordInterface
                 $this->setId($value);
                 break;
             case 1:
-                $valueSet = OtpTableMap::getValueSet(OtpTableMap::COL_CHANNEL);
+                $valueSet = LimitTableMap::getValueSet(LimitTableMap::COL_CHANNEL);
                 if (isset($valueSet[$value])) {
                     $value = $valueSet[$value];
                 }
                 $this->setChannel($value);
                 break;
             case 2:
-                $this->setTarget($value);
+                $valueSet = LimitTableMap::getValueSet(LimitTableMap::COL_MEASURE);
+                if (isset($valueSet[$value])) {
+                    $value = $valueSet[$value];
+                }
+                $this->setMeasure($value);
                 break;
             case 3:
-                $this->setPassword($value);
+                $this->setRate($value);
                 break;
             case 4:
-                $this->setIp($value);
-                break;
-            case 5:
-                $this->setExpireAt($value);
-                break;
-            case 6:
-                $this->setCreatedAt($value);
+                $this->setMinutes($value);
                 break;
         } // switch()
 
@@ -1128,7 +1004,7 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = OtpTableMap::getFieldNames($keyType);
+        $keys = LimitTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
@@ -1137,19 +1013,13 @@ abstract class Otp implements ActiveRecordInterface
             $this->setChannel($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setTarget($arr[$keys[2]]);
+            $this->setMeasure($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setPassword($arr[$keys[3]]);
+            $this->setRate($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setIp($arr[$keys[4]]);
-        }
-        if (array_key_exists($keys[5], $arr)) {
-            $this->setExpireAt($arr[$keys[5]]);
-        }
-        if (array_key_exists($keys[6], $arr)) {
-            $this->setCreatedAt($arr[$keys[6]]);
+            $this->setMinutes($arr[$keys[4]]);
         }
     }
 
@@ -1170,7 +1040,7 @@ abstract class Otp implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Otp\Model\Otp The current object, for fluid interface
+     * @return $this|\Otp\Model\Limit The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1190,28 +1060,22 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(OtpTableMap::DATABASE_NAME);
+        $criteria = new Criteria(LimitTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(OtpTableMap::COL_ID)) {
-            $criteria->add(OtpTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(LimitTableMap::COL_ID)) {
+            $criteria->add(LimitTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_CHANNEL)) {
-            $criteria->add(OtpTableMap::COL_CHANNEL, $this->channel);
+        if ($this->isColumnModified(LimitTableMap::COL_CHANNEL)) {
+            $criteria->add(LimitTableMap::COL_CHANNEL, $this->channel);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_TARGET)) {
-            $criteria->add(OtpTableMap::COL_TARGET, $this->target);
+        if ($this->isColumnModified(LimitTableMap::COL_MEASURE)) {
+            $criteria->add(LimitTableMap::COL_MEASURE, $this->measure);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_PASSWORD)) {
-            $criteria->add(OtpTableMap::COL_PASSWORD, $this->password);
+        if ($this->isColumnModified(LimitTableMap::COL_RATE)) {
+            $criteria->add(LimitTableMap::COL_RATE, $this->rate);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_IP)) {
-            $criteria->add(OtpTableMap::COL_IP, $this->ip);
-        }
-        if ($this->isColumnModified(OtpTableMap::COL_EXPIRE_AT)) {
-            $criteria->add(OtpTableMap::COL_EXPIRE_AT, $this->expire_at);
-        }
-        if ($this->isColumnModified(OtpTableMap::COL_CREATED_AT)) {
-            $criteria->add(OtpTableMap::COL_CREATED_AT, $this->created_at);
+        if ($this->isColumnModified(LimitTableMap::COL_MINUTES)) {
+            $criteria->add(LimitTableMap::COL_MINUTES, $this->minutes);
         }
 
         return $criteria;
@@ -1229,8 +1093,8 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildOtpQuery::create();
-        $criteria->add(OtpTableMap::COL_ID, $this->id);
+        $criteria = ChildLimitQuery::create();
+        $criteria->add(LimitTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -1292,7 +1156,7 @@ abstract class Otp implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Otp\Model\Otp (or compatible) type.
+     * @param      object $copyObj An object of \Otp\Model\Limit (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1300,11 +1164,9 @@ abstract class Otp implements ActiveRecordInterface
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setChannel($this->getChannel());
-        $copyObj->setTarget($this->getTarget());
-        $copyObj->setPassword($this->getPassword());
-        $copyObj->setIp($this->getIp());
-        $copyObj->setExpireAt($this->getExpireAt());
-        $copyObj->setCreatedAt($this->getCreatedAt());
+        $copyObj->setMeasure($this->getMeasure());
+        $copyObj->setRate($this->getRate());
+        $copyObj->setMinutes($this->getMinutes());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1320,7 +1182,7 @@ abstract class Otp implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Otp\Model\Otp Clone of current object.
+     * @return \Otp\Model\Limit Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1342,11 +1204,9 @@ abstract class Otp implements ActiveRecordInterface
     {
         $this->id = null;
         $this->channel = null;
-        $this->target = null;
-        $this->password = null;
-        $this->ip = null;
-        $this->expire_at = null;
-        $this->created_at = null;
+        $this->measure = null;
+        $this->rate = null;
+        $this->minutes = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1376,7 +1236,7 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(OtpTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(LimitTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**

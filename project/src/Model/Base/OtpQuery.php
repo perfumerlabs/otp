@@ -23,6 +23,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildOtpQuery orderByChannel($order = Criteria::ASC) Order by the channel column
  * @method     ChildOtpQuery orderByTarget($order = Criteria::ASC) Order by the target column
  * @method     ChildOtpQuery orderByPassword($order = Criteria::ASC) Order by the password column
+ * @method     ChildOtpQuery orderByIp($order = Criteria::ASC) Order by the ip column
  * @method     ChildOtpQuery orderByExpireAt($order = Criteria::ASC) Order by the expire_at column
  * @method     ChildOtpQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  *
@@ -30,6 +31,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildOtpQuery groupByChannel() Group by the channel column
  * @method     ChildOtpQuery groupByTarget() Group by the target column
  * @method     ChildOtpQuery groupByPassword() Group by the password column
+ * @method     ChildOtpQuery groupByIp() Group by the ip column
  * @method     ChildOtpQuery groupByExpireAt() Group by the expire_at column
  * @method     ChildOtpQuery groupByCreatedAt() Group by the created_at column
  *
@@ -48,6 +50,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildOtp findOneByChannel(int $channel) Return the first ChildOtp filtered by the channel column
  * @method     ChildOtp findOneByTarget(string $target) Return the first ChildOtp filtered by the target column
  * @method     ChildOtp findOneByPassword(string $password) Return the first ChildOtp filtered by the password column
+ * @method     ChildOtp findOneByIp(string $ip) Return the first ChildOtp filtered by the ip column
  * @method     ChildOtp findOneByExpireAt(string $expire_at) Return the first ChildOtp filtered by the expire_at column
  * @method     ChildOtp findOneByCreatedAt(string $created_at) Return the first ChildOtp filtered by the created_at column *
 
@@ -58,6 +61,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildOtp requireOneByChannel(int $channel) Return the first ChildOtp filtered by the channel column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildOtp requireOneByTarget(string $target) Return the first ChildOtp filtered by the target column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildOtp requireOneByPassword(string $password) Return the first ChildOtp filtered by the password column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildOtp requireOneByIp(string $ip) Return the first ChildOtp filtered by the ip column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildOtp requireOneByExpireAt(string $expire_at) Return the first ChildOtp filtered by the expire_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildOtp requireOneByCreatedAt(string $created_at) Return the first ChildOtp filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -66,6 +70,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildOtp[]|ObjectCollection findByChannel(int $channel) Return ChildOtp objects filtered by the channel column
  * @method     ChildOtp[]|ObjectCollection findByTarget(string $target) Return ChildOtp objects filtered by the target column
  * @method     ChildOtp[]|ObjectCollection findByPassword(string $password) Return ChildOtp objects filtered by the password column
+ * @method     ChildOtp[]|ObjectCollection findByIp(string $ip) Return ChildOtp objects filtered by the ip column
  * @method     ChildOtp[]|ObjectCollection findByExpireAt(string $expire_at) Return ChildOtp objects filtered by the expire_at column
  * @method     ChildOtp[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildOtp objects filtered by the created_at column
  * @method     ChildOtp[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -166,7 +171,7 @@ abstract class OtpQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, channel, target, password, expire_at, created_at FROM otp WHERE id = :p0';
+        $sql = 'SELECT id, channel, target, password, ip, expire_at, created_at FROM otp WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -378,6 +383,31 @@ abstract class OtpQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(OtpTableMap::COL_PASSWORD, $password, $comparison);
+    }
+
+    /**
+     * Filter the query on the ip column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByIp('fooValue');   // WHERE ip = 'fooValue'
+     * $query->filterByIp('%fooValue%', Criteria::LIKE); // WHERE ip LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $ip The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildOtpQuery The current query, for fluid interface
+     */
+    public function filterByIp($ip = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($ip)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(OtpTableMap::COL_IP, $ip, $comparison);
     }
 
     /**

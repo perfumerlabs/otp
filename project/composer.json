@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "perfumer/framework": "0.8.5",
+        "perfumer/framework": "0.9.0",
         "propel/propel": "2.0.0-alpha8",
         "pwfisher/command-line-php": "dev-master",
         "symfony/console": "*",

@@ -2,8 +2,8 @@
 
 namespace Otp\Model\Map;
 
-use Otp\Model\Otp;
-use Otp\Model\OtpQuery;
+use Otp\Model\Limit;
+use Otp\Model\LimitQuery;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\InstancePoolTrait;
@@ -16,7 +16,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the 'otp' table.
+ * This class defines the structure of the '_limit' table.
  *
  *
  *
@@ -26,7 +26,7 @@ use Propel\Runtime\Map\TableMapTrait;
  * (i.e. if it's a text column type).
  *
  */
-class OtpTableMap extends TableMap
+class LimitTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -34,7 +34,7 @@ class OtpTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = '.Map.OtpTableMap';
+    const CLASS_NAME = '.Map.LimitTableMap';
 
     /**
      * The default database name for this class
@@ -44,22 +44,22 @@ class OtpTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'otp';
+    const TABLE_NAME = '_limit';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Otp\\Model\\Otp';
+    const OM_CLASS = '\\Otp\\Model\\Limit';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'Otp';
+    const CLASS_DEFAULT = 'Limit';
 
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 7;
+    const NUM_COLUMNS = 5;
 
     /**
      * The number of lazy-loaded columns
@@ -69,42 +69,32 @@ class OtpTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 7;
+    const NUM_HYDRATE_COLUMNS = 5;
 
     /**
      * the column name for the id field
      */
-    const COL_ID = 'otp.id';
+    const COL_ID = '_limit.id';
 
     /**
      * the column name for the channel field
      */
-    const COL_CHANNEL = 'otp.channel';
+    const COL_CHANNEL = '_limit.channel';
 
     /**
-     * the column name for the target field
+     * the column name for the measure field
      */
-    const COL_TARGET = 'otp.target';
+    const COL_MEASURE = '_limit.measure';
 
     /**
-     * the column name for the password field
+     * the column name for the rate field
      */
-    const COL_PASSWORD = 'otp.password';
+    const COL_RATE = '_limit.rate';
 
     /**
-     * the column name for the ip field
+     * the column name for the minutes field
      */
-    const COL_IP = 'otp.ip';
-
-    /**
-     * the column name for the expire_at field
-     */
-    const COL_EXPIRE_AT = 'otp.expire_at';
-
-    /**
-     * the column name for the created_at field
-     */
-    const COL_CREATED_AT = 'otp.created_at';
+    const COL_MINUTES = '_limit.minutes';
 
     /**
      * The default string format for model objects of the related table
@@ -115,6 +105,10 @@ class OtpTableMap extends TableMap
     const COL_CHANNEL_SMS = 'sms';
     const COL_CHANNEL_EMAIL = 'email';
 
+    /** The enumerated values for the measure field */
+    const COL_MEASURE_TARGET = 'target';
+    const COL_MEASURE_IP = 'ip';
+
     /**
      * holds an array of fieldnames
      *
@@ -122,11 +116,11 @@ class OtpTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Channel', 'Target', 'Password', 'Ip', 'ExpireAt', 'CreatedAt', ),
-        self::TYPE_CAMELNAME     => array('id', 'channel', 'target', 'password', 'ip', 'expireAt', 'createdAt', ),
-        self::TYPE_COLNAME       => array(OtpTableMap::COL_ID, OtpTableMap::COL_CHANNEL, OtpTableMap::COL_TARGET, OtpTableMap::COL_PASSWORD, OtpTableMap::COL_IP, OtpTableMap::COL_EXPIRE_AT, OtpTableMap::COL_CREATED_AT, ),
-        self::TYPE_FIELDNAME     => array('id', 'channel', 'target', 'password', 'ip', 'expire_at', 'created_at', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id', 'Channel', 'Measure', 'Rate', 'Minutes', ),
+        self::TYPE_CAMELNAME     => array('id', 'channel', 'measure', 'rate', 'minutes', ),
+        self::TYPE_COLNAME       => array(LimitTableMap::COL_ID, LimitTableMap::COL_CHANNEL, LimitTableMap::COL_MEASURE, LimitTableMap::COL_RATE, LimitTableMap::COL_MINUTES, ),
+        self::TYPE_FIELDNAME     => array('id', 'channel', 'measure', 'rate', 'minutes', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
     /**
@@ -136,18 +130,22 @@ class OtpTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Channel' => 1, 'Target' => 2, 'Password' => 3, 'Ip' => 4, 'ExpireAt' => 5, 'CreatedAt' => 6, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'channel' => 1, 'target' => 2, 'password' => 3, 'ip' => 4, 'expireAt' => 5, 'createdAt' => 6, ),
-        self::TYPE_COLNAME       => array(OtpTableMap::COL_ID => 0, OtpTableMap::COL_CHANNEL => 1, OtpTableMap::COL_TARGET => 2, OtpTableMap::COL_PASSWORD => 3, OtpTableMap::COL_IP => 4, OtpTableMap::COL_EXPIRE_AT => 5, OtpTableMap::COL_CREATED_AT => 6, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'channel' => 1, 'target' => 2, 'password' => 3, 'ip' => 4, 'expire_at' => 5, 'created_at' => 6, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Channel' => 1, 'Measure' => 2, 'Rate' => 3, 'Minutes' => 4, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'channel' => 1, 'measure' => 2, 'rate' => 3, 'minutes' => 4, ),
+        self::TYPE_COLNAME       => array(LimitTableMap::COL_ID => 0, LimitTableMap::COL_CHANNEL => 1, LimitTableMap::COL_MEASURE => 2, LimitTableMap::COL_RATE => 3, LimitTableMap::COL_MINUTES => 4, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'channel' => 1, 'measure' => 2, 'rate' => 3, 'minutes' => 4, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
     /** The enumerated values for this table */
     protected static $enumValueSets = array(
-                OtpTableMap::COL_CHANNEL => array(
+                LimitTableMap::COL_CHANNEL => array(
                             self::COL_CHANNEL_SMS,
             self::COL_CHANNEL_EMAIL,
+        ),
+                LimitTableMap::COL_MEASURE => array(
+                            self::COL_MEASURE_TARGET,
+            self::COL_MEASURE_IP,
         ),
     );
 
@@ -182,25 +180,27 @@ class OtpTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('otp');
-        $this->setPhpName('Otp');
+        $this->setName('_limit');
+        $this->setPhpName('Limit');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Otp\\Model\\Otp');
+        $this->setClassName('\\Otp\\Model\\Limit');
         $this->setPackage('');
         $this->setUseIdGenerator(true);
-        $this->setPrimaryKeyMethodInfo('otp_id_seq');
+        $this->setPrimaryKeyMethodInfo('_limit_id_seq');
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('channel', 'Channel', 'ENUM', false, null, null);
+        $this->addColumn('channel', 'Channel', 'ENUM', true, null, null);
         $this->getColumn('channel')->setValueSet(array (
   0 => 'sms',
   1 => 'email',
 ));
-        $this->addColumn('target', 'Target', 'VARCHAR', false, 255, null);
-        $this->addColumn('password', 'Password', 'VARCHAR', false, 255, null);
-        $this->addColumn('ip', 'Ip', 'VARCHAR', false, 255, null);
-        $this->addColumn('expire_at', 'ExpireAt', 'TIMESTAMP', false, null, null);
-        $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
+        $this->addColumn('measure', 'Measure', 'ENUM', true, null, null);
+        $this->getColumn('measure')->setValueSet(array (
+  0 => 'target',
+  1 => 'ip',
+));
+        $this->addColumn('rate', 'Rate', 'INTEGER', true, null, null);
+        $this->addColumn('minutes', 'Minutes', 'INTEGER', true, null, null);
     } // initialize()
 
     /**
@@ -209,19 +209,6 @@ class OtpTableMap extends TableMap
     public function buildRelations()
     {
     } // buildRelations()
-
-    /**
-     *
-     * Gets the list of behaviors registered for this table
-     *
-     * @return array Associative array (name => parameters) of behaviors
-     */
-    public function getBehaviors()
-    {
-        return array(
-            'timestampable' => array('create_column' => 'created_at', 'update_column' => 'updated_at', 'disable_created_at' => 'false', 'disable_updated_at' => 'true', ),
-        );
-    } // getBehaviors()
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.
@@ -280,7 +267,7 @@ class OtpTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? OtpTableMap::CLASS_DEFAULT : OtpTableMap::OM_CLASS;
+        return $withPrefix ? LimitTableMap::CLASS_DEFAULT : LimitTableMap::OM_CLASS;
     }
 
     /**
@@ -294,22 +281,22 @@ class OtpTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (Otp object, last column rank)
+     * @return array           (Limit object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = OtpTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = OtpTableMap::getInstanceFromPool($key))) {
+        $key = LimitTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = LimitTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + OtpTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + LimitTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = OtpTableMap::OM_CLASS;
-            /** @var Otp $obj */
+            $cls = LimitTableMap::OM_CLASS;
+            /** @var Limit $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            OtpTableMap::addInstanceToPool($obj, $key);
+            LimitTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -332,18 +319,18 @@ class OtpTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = OtpTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = OtpTableMap::getInstanceFromPool($key))) {
+            $key = LimitTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = LimitTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var Otp $obj */
+                /** @var Limit $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                OtpTableMap::addInstanceToPool($obj, $key);
+                LimitTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -364,21 +351,17 @@ class OtpTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(OtpTableMap::COL_ID);
-            $criteria->addSelectColumn(OtpTableMap::COL_CHANNEL);
-            $criteria->addSelectColumn(OtpTableMap::COL_TARGET);
-            $criteria->addSelectColumn(OtpTableMap::COL_PASSWORD);
-            $criteria->addSelectColumn(OtpTableMap::COL_IP);
-            $criteria->addSelectColumn(OtpTableMap::COL_EXPIRE_AT);
-            $criteria->addSelectColumn(OtpTableMap::COL_CREATED_AT);
+            $criteria->addSelectColumn(LimitTableMap::COL_ID);
+            $criteria->addSelectColumn(LimitTableMap::COL_CHANNEL);
+            $criteria->addSelectColumn(LimitTableMap::COL_MEASURE);
+            $criteria->addSelectColumn(LimitTableMap::COL_RATE);
+            $criteria->addSelectColumn(LimitTableMap::COL_MINUTES);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.channel');
-            $criteria->addSelectColumn($alias . '.target');
-            $criteria->addSelectColumn($alias . '.password');
-            $criteria->addSelectColumn($alias . '.ip');
-            $criteria->addSelectColumn($alias . '.expire_at');
-            $criteria->addSelectColumn($alias . '.created_at');
+            $criteria->addSelectColumn($alias . '.measure');
+            $criteria->addSelectColumn($alias . '.rate');
+            $criteria->addSelectColumn($alias . '.minutes');
         }
     }
 
@@ -391,7 +374,7 @@ class OtpTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(OtpTableMap::DATABASE_NAME)->getTable(OtpTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(LimitTableMap::DATABASE_NAME)->getTable(LimitTableMap::TABLE_NAME);
     }
 
     /**
@@ -399,16 +382,16 @@ class OtpTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(OtpTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(OtpTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new OtpTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(LimitTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(LimitTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new LimitTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a Otp or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a Limit or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Otp object or primary key or array of primary keys
+     * @param mixed               $values Criteria or Limit object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -419,27 +402,27 @@ class OtpTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LimitTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Otp\Model\Otp) { // it's a model object
+        } elseif ($values instanceof \Otp\Model\Limit) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(OtpTableMap::DATABASE_NAME);
-            $criteria->add(OtpTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(LimitTableMap::DATABASE_NAME);
+            $criteria->add(LimitTableMap::COL_ID, (array) $values, Criteria::IN);
         }
 
-        $query = OtpQuery::create()->mergeWith($criteria);
+        $query = LimitQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            OtpTableMap::clearInstancePool();
+            LimitTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                OtpTableMap::removeInstanceFromPool($singleval);
+                LimitTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -447,20 +430,20 @@ class OtpTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the otp table.
+     * Deletes all rows from the _limit table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return OtpQuery::create()->doDeleteAll($con);
+        return LimitQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a Otp or Criteria object.
+     * Performs an INSERT on the database, given a Limit or Criteria object.
      *
-     * @param mixed               $criteria Criteria or Otp object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or Limit object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -469,22 +452,22 @@ class OtpTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LimitTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from Otp object
+            $criteria = $criteria->buildCriteria(); // build Criteria from Limit object
         }
 
-        if ($criteria->containsKey(OtpTableMap::COL_ID) && $criteria->keyContainsValue(OtpTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.OtpTableMap::COL_ID.')');
+        if ($criteria->containsKey(LimitTableMap::COL_ID) && $criteria->keyContainsValue(LimitTableMap::COL_ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.LimitTableMap::COL_ID.')');
         }
 
 
         // Set the correct dbName
-        $query = OtpQuery::create()->mergeWith($criteria);
+        $query = LimitQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -493,7 +476,7 @@ class OtpTableMap extends TableMap
         });
     }
 
-} // OtpTableMap
+} // LimitTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-OtpTableMap::buildTableMap();
+LimitTableMap::buildTableMap();

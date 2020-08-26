@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b000e88c6294a606d183c198f0764408",
+    "content-hash": "f6dddc1ecc03a1e1a6d8127355b24672",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -288,16 +288,16 @@
         },
         {
             "name": "perfumer/framework",
-            "version": "v0.8.5",
+            "version": "v0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/perfumer/framework.git",
-                "reference": "9c19c2509e9ca05302ae7d301f01feb70b30c153"
+                "reference": "d5304db55943d942b695e24675e2fb4cde852f7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perfumer/framework/zipball/9c19c2509e9ca05302ae7d301f01feb70b30c153",
-                "reference": "9c19c2509e9ca05302ae7d301f01feb70b30c153",
+                "url": "https://api.github.com/repos/perfumer/framework/zipball/d5304db55943d942b695e24675e2fb4cde852f7b",
+                "reference": "d5304db55943d942b695e24675e2fb4cde852f7b",
                 "shasum": ""
             },
             "require": {
@@ -331,7 +331,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2020-07-12T11:28:29+00:00"
+            "time": "2020-08-26T04:38:37+00:00"
         },
         {
             "name": "propel/propel",

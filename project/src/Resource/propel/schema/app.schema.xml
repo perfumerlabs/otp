@@ -2,10 +2,16 @@
 <database name="otp" defaultIdMethod="native" namespace="Otp\Model">
     <table name="otp" phpName="Otp">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
-        <column name="channel" type="enum" valueSet="sms,email"/>
-        <column name="target" type="varchar" size="255"/>
-        <column name="password" type="varchar" size="255"/>
-        <column name="expire_at" type="timestamp"/>
+        <column name="channel" type="enum" valueSet="sms,email"/> <!-- Type of OTP sending channel -->
+        <!--
+        sms - via SMS
+        email - via emails
+        -->
+        <column name="target" type="varchar" size="255"/> <!-- Email or phone to send to -->
+        <column name="password" type="varchar" size="255"/> <!-- Value of OTP -->
+        <column name="ip" type="varchar" size="255"/> <!-- IP of client -->
+        <column name="expire_at" type="timestamp"/> <!-- Expire datetime of OTP -->
+        <column name="created_at" type="timestamp"/> <!-- datetime of creation -->
         <index>
             <index-column name="target"/>
             <index-column name="password"/>
@@ -13,8 +19,22 @@
         <index>
             <index-column name="expire_at"/>
         </index>
+        <index>
+            <index-column name="created_at"/>
+        </index>
+        <index>
+            <index-column name="ip"/>
+        </index>
         <behavior name="timestampable">
             <parameter name="disable_updated_at" value="true" />
         </behavior>
+    </table>
+
+    <table name="_limit" phpName="Limit">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="channel" type="enum" valueSet="sms,email" required="true"/> <!-- Type of OTP sending channel -->
+        <column name="measure" type="enum" valueSet="target,ip" required="true"/> <!-- Type of measuring: by ip or emails/phones -->
+        <column name="rate" type="integer" required="true"/> <!-- hoe many times max -->
+        <column name="minutes" type="integer" required="true"/> <!-- in how many minutes -->
     </table>
 </database>

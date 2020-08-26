@@ -58,6 +58,7 @@ API Reference
 `POST /sms`
 
 Parameters (json):
+- ip [string,optional] - IP of requester. Required, if ip limits are set.
 - phone [string,required] - phone to send to, without "+".
 - password [string,required] - one time password.
 - lifetime [integer,required] - lifetime of password, in seconds.
@@ -67,6 +68,7 @@ Request example:
 
 ```json
 {
+    "ip": "123.123.123.123",
     "phone": "77011234567",
     "password": "12345",
     "lifetime": 300,
@@ -74,11 +76,29 @@ Request example:
 }
 ```
 
-Response example:
+Success response example:
 
 ```json
 {
     "status": true
+}
+```
+
+Failure response examples:
+
+```json
+{
+    "status": false,
+    "status_code": "ip_limit",
+    "message": "IP limit has been reached"
+}
+```
+
+```json
+{
+    "status": false,
+    "status_code": "phone_limit",
+    "message": "Phone limit has been reached"
 }
 ```
 
@@ -87,6 +107,7 @@ Response example:
 `POST /email`
 
 Parameters (json):
+- ip [string,optional] - IP of requester. Required, if ip limits are set.
 - email [string,required] - email to send to.
 - password [string,required] - one time password.
 - lifetime [integer,required] - lifetime of password, in seconds.
@@ -98,6 +119,7 @@ Request example:
 
 ```json
 {
+    "ip": "123.123.123.123",
     "email": "foobar@example.com",
     "password": "12345",
     "lifetime": 300,
@@ -106,11 +128,29 @@ Request example:
 }
 ```
 
-Response example:
+Success response example:
 
 ```json
 {
     "status": true
+}
+```
+
+Failure response examples:
+
+```json
+{
+    "status": false,
+    "status_code": "ip_limit",
+    "message": "IP limit has been reached"
+}
+```
+
+```json
+{
+    "status": false,
+    "status_code": "email_limit",
+    "message": "Email limit has been reached"
 }
 ```
 
@@ -135,7 +175,7 @@ Response example:
 
 ```json
 {
-    "status": false
+    "status": true
 }
 ```
 
@@ -160,6 +200,88 @@ Response example:
 
 ```json
 {
-    "status": false
+    "status": true
+}
+```
+
+### Set SMS limits
+
+`POST /limit/sms`
+
+Parameters (json):
+- ips [array,optional] - set of rules for IP.
+- phones [array,optional] - set of rules for phones.
+
+Each rule consists of minutes and rate parameter which means "how many tries allowed for number of minutes".
+
+Request example:
+
+```json
+{
+    "ips": [
+        {
+            "minutes": 10,
+            "rate": 3
+        },
+        {
+            "minutes": 60,
+            "rate": 10
+        }
+    ],
+    "phones": [
+        {
+            "minutes": 10,
+            "rate": 3
+        }
+    ]
+}
+```
+
+Response example:
+
+```json
+{
+    "status": true
+}
+```
+
+### Set email limits
+
+`POST /limit/email`
+
+Parameters (json):
+- ips [array,optional] - set of rules for IP.
+- emails [array,optional] - set of rules for phones.
+
+Each rule consists of minutes and rate parameter which means "how many tries allowed for number of minutes".
+
+Request example:
+
+```json
+{
+    "ips": [
+        {
+            "minutes": 10,
+            "rate": 3
+        },
+        {
+            "minutes": 60,
+            "rate": 10
+        }
+    ],
+    "emails": [
+        {
+            "minutes": 10,
+            "rate": 3
+        }
+    ]
+}
+```
+
+Response example:
+
+```json
+{
+    "status": true
 }
 ```
