@@ -4,9 +4,9 @@ namespace Otp\Model\Base;
 
 use \Exception;
 use \PDO;
-use Otp\Model\Otp as ChildOtp;
-use Otp\Model\OtpQuery as ChildOtpQuery;
-use Otp\Model\Map\OtpTableMap;
+use Otp\Model\Password as ChildPassword;
+use Otp\Model\PasswordQuery as ChildPasswordQuery;
+use Otp\Model\Map\PasswordTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
@@ -15,97 +15,97 @@ use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
 
 /**
- * Base class that represents a query for the 'otp' table.
+ * Base class that represents a query for the 'otp_password' table.
  *
  *
  *
- * @method     ChildOtpQuery orderById($order = Criteria::ASC) Order by the id column
- * @method     ChildOtpQuery orderByChannel($order = Criteria::ASC) Order by the channel column
- * @method     ChildOtpQuery orderByTarget($order = Criteria::ASC) Order by the target column
- * @method     ChildOtpQuery orderByPassword($order = Criteria::ASC) Order by the password column
- * @method     ChildOtpQuery orderByIp($order = Criteria::ASC) Order by the ip column
- * @method     ChildOtpQuery orderByExpireAt($order = Criteria::ASC) Order by the expire_at column
- * @method     ChildOtpQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
+ * @method     ChildPasswordQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method     ChildPasswordQuery orderByChannel($order = Criteria::ASC) Order by the channel column
+ * @method     ChildPasswordQuery orderByTarget($order = Criteria::ASC) Order by the target column
+ * @method     ChildPasswordQuery orderByPassword($order = Criteria::ASC) Order by the password column
+ * @method     ChildPasswordQuery orderByIp($order = Criteria::ASC) Order by the ip column
+ * @method     ChildPasswordQuery orderByExpireAt($order = Criteria::ASC) Order by the expire_at column
+ * @method     ChildPasswordQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  *
- * @method     ChildOtpQuery groupById() Group by the id column
- * @method     ChildOtpQuery groupByChannel() Group by the channel column
- * @method     ChildOtpQuery groupByTarget() Group by the target column
- * @method     ChildOtpQuery groupByPassword() Group by the password column
- * @method     ChildOtpQuery groupByIp() Group by the ip column
- * @method     ChildOtpQuery groupByExpireAt() Group by the expire_at column
- * @method     ChildOtpQuery groupByCreatedAt() Group by the created_at column
+ * @method     ChildPasswordQuery groupById() Group by the id column
+ * @method     ChildPasswordQuery groupByChannel() Group by the channel column
+ * @method     ChildPasswordQuery groupByTarget() Group by the target column
+ * @method     ChildPasswordQuery groupByPassword() Group by the password column
+ * @method     ChildPasswordQuery groupByIp() Group by the ip column
+ * @method     ChildPasswordQuery groupByExpireAt() Group by the expire_at column
+ * @method     ChildPasswordQuery groupByCreatedAt() Group by the created_at column
  *
- * @method     ChildOtpQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
- * @method     ChildOtpQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
- * @method     ChildOtpQuery innerJoin($relation) Adds a INNER JOIN clause to the query
+ * @method     ChildPasswordQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
+ * @method     ChildPasswordQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
+ * @method     ChildPasswordQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     ChildOtpQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
- * @method     ChildOtpQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
- * @method     ChildOtpQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ * @method     ChildPasswordQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildPasswordQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildPasswordQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildOtp findOne(ConnectionInterface $con = null) Return the first ChildOtp matching the query
- * @method     ChildOtp findOneOrCreate(ConnectionInterface $con = null) Return the first ChildOtp matching the query, or a new ChildOtp object populated from the query conditions when no match is found
+ * @method     ChildPassword findOne(ConnectionInterface $con = null) Return the first ChildPassword matching the query
+ * @method     ChildPassword findOneOrCreate(ConnectionInterface $con = null) Return the first ChildPassword matching the query, or a new ChildPassword object populated from the query conditions when no match is found
  *
- * @method     ChildOtp findOneById(int $id) Return the first ChildOtp filtered by the id column
- * @method     ChildOtp findOneByChannel(int $channel) Return the first ChildOtp filtered by the channel column
- * @method     ChildOtp findOneByTarget(string $target) Return the first ChildOtp filtered by the target column
- * @method     ChildOtp findOneByPassword(string $password) Return the first ChildOtp filtered by the password column
- * @method     ChildOtp findOneByIp(string $ip) Return the first ChildOtp filtered by the ip column
- * @method     ChildOtp findOneByExpireAt(string $expire_at) Return the first ChildOtp filtered by the expire_at column
- * @method     ChildOtp findOneByCreatedAt(string $created_at) Return the first ChildOtp filtered by the created_at column *
+ * @method     ChildPassword findOneById(int $id) Return the first ChildPassword filtered by the id column
+ * @method     ChildPassword findOneByChannel(int $channel) Return the first ChildPassword filtered by the channel column
+ * @method     ChildPassword findOneByTarget(string $target) Return the first ChildPassword filtered by the target column
+ * @method     ChildPassword findOneByPassword(string $password) Return the first ChildPassword filtered by the password column
+ * @method     ChildPassword findOneByIp(string $ip) Return the first ChildPassword filtered by the ip column
+ * @method     ChildPassword findOneByExpireAt(string $expire_at) Return the first ChildPassword filtered by the expire_at column
+ * @method     ChildPassword findOneByCreatedAt(string $created_at) Return the first ChildPassword filtered by the created_at column *
 
- * @method     ChildOtp requirePk($key, ConnectionInterface $con = null) Return the ChildOtp by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildOtp requireOne(ConnectionInterface $con = null) Return the first ChildOtp matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPassword requirePk($key, ConnectionInterface $con = null) Return the ChildPassword by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPassword requireOne(ConnectionInterface $con = null) Return the first ChildPassword matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildOtp requireOneById(int $id) Return the first ChildOtp filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildOtp requireOneByChannel(int $channel) Return the first ChildOtp filtered by the channel column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildOtp requireOneByTarget(string $target) Return the first ChildOtp filtered by the target column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildOtp requireOneByPassword(string $password) Return the first ChildOtp filtered by the password column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildOtp requireOneByIp(string $ip) Return the first ChildOtp filtered by the ip column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildOtp requireOneByExpireAt(string $expire_at) Return the first ChildOtp filtered by the expire_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildOtp requireOneByCreatedAt(string $created_at) Return the first ChildOtp filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPassword requireOneById(int $id) Return the first ChildPassword filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPassword requireOneByChannel(int $channel) Return the first ChildPassword filtered by the channel column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPassword requireOneByTarget(string $target) Return the first ChildPassword filtered by the target column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPassword requireOneByPassword(string $password) Return the first ChildPassword filtered by the password column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPassword requireOneByIp(string $ip) Return the first ChildPassword filtered by the ip column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPassword requireOneByExpireAt(string $expire_at) Return the first ChildPassword filtered by the expire_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPassword requireOneByCreatedAt(string $created_at) Return the first ChildPassword filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildOtp[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildOtp objects based on current ModelCriteria
- * @method     ChildOtp[]|ObjectCollection findById(int $id) Return ChildOtp objects filtered by the id column
- * @method     ChildOtp[]|ObjectCollection findByChannel(int $channel) Return ChildOtp objects filtered by the channel column
- * @method     ChildOtp[]|ObjectCollection findByTarget(string $target) Return ChildOtp objects filtered by the target column
- * @method     ChildOtp[]|ObjectCollection findByPassword(string $password) Return ChildOtp objects filtered by the password column
- * @method     ChildOtp[]|ObjectCollection findByIp(string $ip) Return ChildOtp objects filtered by the ip column
- * @method     ChildOtp[]|ObjectCollection findByExpireAt(string $expire_at) Return ChildOtp objects filtered by the expire_at column
- * @method     ChildOtp[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildOtp objects filtered by the created_at column
- * @method     ChildOtp[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
+ * @method     ChildPassword[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildPassword objects based on current ModelCriteria
+ * @method     ChildPassword[]|ObjectCollection findById(int $id) Return ChildPassword objects filtered by the id column
+ * @method     ChildPassword[]|ObjectCollection findByChannel(int $channel) Return ChildPassword objects filtered by the channel column
+ * @method     ChildPassword[]|ObjectCollection findByTarget(string $target) Return ChildPassword objects filtered by the target column
+ * @method     ChildPassword[]|ObjectCollection findByPassword(string $password) Return ChildPassword objects filtered by the password column
+ * @method     ChildPassword[]|ObjectCollection findByIp(string $ip) Return ChildPassword objects filtered by the ip column
+ * @method     ChildPassword[]|ObjectCollection findByExpireAt(string $expire_at) Return ChildPassword objects filtered by the expire_at column
+ * @method     ChildPassword[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildPassword objects filtered by the created_at column
+ * @method     ChildPassword[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
-abstract class OtpQuery extends ModelCriteria
+abstract class PasswordQuery extends ModelCriteria
 {
     protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
 
     /**
-     * Initializes internal state of \Otp\Model\Base\OtpQuery object.
+     * Initializes internal state of \Otp\Model\Base\PasswordQuery object.
      *
      * @param     string $dbName The database name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'otp', $modelName = '\\Otp\\Model\\Otp', $modelAlias = null)
+    public function __construct($dbName = 'otp', $modelName = '\\Otp\\Model\\Password', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
 
     /**
-     * Returns a new ChildOtpQuery object.
+     * Returns a new ChildPasswordQuery object.
      *
      * @param     string $modelAlias The alias of a model in the query
      * @param     Criteria $criteria Optional Criteria to build the query from
      *
-     * @return ChildOtpQuery
+     * @return ChildPasswordQuery
      */
     public static function create($modelAlias = null, Criteria $criteria = null)
     {
-        if ($criteria instanceof ChildOtpQuery) {
+        if ($criteria instanceof ChildPasswordQuery) {
             return $criteria;
         }
-        $query = new ChildOtpQuery();
+        $query = new ChildPasswordQuery();
         if (null !== $modelAlias) {
             $query->setModelAlias($modelAlias);
         }
@@ -128,7 +128,7 @@ abstract class OtpQuery extends ModelCriteria
      * @param mixed $key Primary key to use for the query
      * @param ConnectionInterface $con an optional connection object
      *
-     * @return ChildOtp|array|mixed the result, formatted by the current formatter
+     * @return ChildPassword|array|mixed the result, formatted by the current formatter
      */
     public function findPk($key, ConnectionInterface $con = null)
     {
@@ -137,7 +137,7 @@ abstract class OtpQuery extends ModelCriteria
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(PasswordTableMap::DATABASE_NAME);
         }
 
         $this->basePreSelect($con);
@@ -150,7 +150,7 @@ abstract class OtpQuery extends ModelCriteria
             return $this->findPkComplex($key, $con);
         }
 
-        if ((null !== ($obj = OtpTableMap::getInstanceFromPool(null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string) $key : $key)))) {
+        if ((null !== ($obj = PasswordTableMap::getInstanceFromPool(null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string) $key : $key)))) {
             // the object is already in the instance pool
             return $obj;
         }
@@ -167,11 +167,11 @@ abstract class OtpQuery extends ModelCriteria
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
-     * @return ChildOtp A model object, or null if the key is not found
+     * @return ChildPassword A model object, or null if the key is not found
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, channel, target, password, ip, expire_at, created_at FROM otp WHERE id = :p0';
+        $sql = 'SELECT id, channel, target, password, ip, expire_at, created_at FROM otp_password WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -182,10 +182,10 @@ abstract class OtpQuery extends ModelCriteria
         }
         $obj = null;
         if ($row = $stmt->fetch(\PDO::FETCH_NUM)) {
-            /** @var ChildOtp $obj */
-            $obj = new ChildOtp();
+            /** @var ChildPassword $obj */
+            $obj = new ChildPassword();
             $obj->hydrate($row);
-            OtpTableMap::addInstanceToPool($obj, null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string) $key : $key);
+            PasswordTableMap::addInstanceToPool($obj, null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string) $key : $key);
         }
         $stmt->closeCursor();
 
@@ -198,7 +198,7 @@ abstract class OtpQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
-     * @return ChildOtp|array|mixed the result, formatted by the current formatter
+     * @return ChildPassword|array|mixed the result, formatted by the current formatter
      */
     protected function findPkComplex($key, ConnectionInterface $con)
     {
@@ -240,12 +240,12 @@ abstract class OtpQuery extends ModelCriteria
      *
      * @param     mixed $key Primary key to use for the query
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(OtpTableMap::COL_ID, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(PasswordTableMap::COL_ID, $key, Criteria::EQUAL);
     }
 
     /**
@@ -253,12 +253,12 @@ abstract class OtpQuery extends ModelCriteria
      *
      * @param     array $keys The list of primary key to use for the query
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(OtpTableMap::COL_ID, $keys, Criteria::IN);
+        return $this->addUsingAlias(PasswordTableMap::COL_ID, $keys, Criteria::IN);
     }
 
     /**
@@ -277,18 +277,18 @@ abstract class OtpQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function filterById($id = null, $comparison = null)
     {
         if (is_array($id)) {
             $useMinMax = false;
             if (isset($id['min'])) {
-                $this->addUsingAlias(OtpTableMap::COL_ID, $id['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(PasswordTableMap::COL_ID, $id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($id['max'])) {
-                $this->addUsingAlias(OtpTableMap::COL_ID, $id['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(PasswordTableMap::COL_ID, $id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -299,7 +299,7 @@ abstract class OtpQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(OtpTableMap::COL_ID, $id, $comparison);
+        return $this->addUsingAlias(PasswordTableMap::COL_ID, $id, $comparison);
     }
 
     /**
@@ -308,11 +308,11 @@ abstract class OtpQuery extends ModelCriteria
      * @param     mixed $channel The value to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function filterByChannel($channel = null, $comparison = null)
     {
-        $valueSet = OtpTableMap::getValueSet(OtpTableMap::COL_CHANNEL);
+        $valueSet = PasswordTableMap::getValueSet(PasswordTableMap::COL_CHANNEL);
         if (is_scalar($channel)) {
             if (!in_array($channel, $valueSet)) {
                 throw new PropelException(sprintf('Value "%s" is not accepted in this enumerated column', $channel));
@@ -332,7 +332,7 @@ abstract class OtpQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(OtpTableMap::COL_CHANNEL, $channel, $comparison);
+        return $this->addUsingAlias(PasswordTableMap::COL_CHANNEL, $channel, $comparison);
     }
 
     /**
@@ -347,7 +347,7 @@ abstract class OtpQuery extends ModelCriteria
      * @param     string $target The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function filterByTarget($target = null, $comparison = null)
     {
@@ -357,7 +357,7 @@ abstract class OtpQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(OtpTableMap::COL_TARGET, $target, $comparison);
+        return $this->addUsingAlias(PasswordTableMap::COL_TARGET, $target, $comparison);
     }
 
     /**
@@ -372,7 +372,7 @@ abstract class OtpQuery extends ModelCriteria
      * @param     string $password The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function filterByPassword($password = null, $comparison = null)
     {
@@ -382,7 +382,7 @@ abstract class OtpQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(OtpTableMap::COL_PASSWORD, $password, $comparison);
+        return $this->addUsingAlias(PasswordTableMap::COL_PASSWORD, $password, $comparison);
     }
 
     /**
@@ -397,7 +397,7 @@ abstract class OtpQuery extends ModelCriteria
      * @param     string $ip The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function filterByIp($ip = null, $comparison = null)
     {
@@ -407,7 +407,7 @@ abstract class OtpQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(OtpTableMap::COL_IP, $ip, $comparison);
+        return $this->addUsingAlias(PasswordTableMap::COL_IP, $ip, $comparison);
     }
 
     /**
@@ -428,18 +428,18 @@ abstract class OtpQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function filterByExpireAt($expireAt = null, $comparison = null)
     {
         if (is_array($expireAt)) {
             $useMinMax = false;
             if (isset($expireAt['min'])) {
-                $this->addUsingAlias(OtpTableMap::COL_EXPIRE_AT, $expireAt['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(PasswordTableMap::COL_EXPIRE_AT, $expireAt['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($expireAt['max'])) {
-                $this->addUsingAlias(OtpTableMap::COL_EXPIRE_AT, $expireAt['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(PasswordTableMap::COL_EXPIRE_AT, $expireAt['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -450,7 +450,7 @@ abstract class OtpQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(OtpTableMap::COL_EXPIRE_AT, $expireAt, $comparison);
+        return $this->addUsingAlias(PasswordTableMap::COL_EXPIRE_AT, $expireAt, $comparison);
     }
 
     /**
@@ -471,18 +471,18 @@ abstract class OtpQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function filterByCreatedAt($createdAt = null, $comparison = null)
     {
         if (is_array($createdAt)) {
             $useMinMax = false;
             if (isset($createdAt['min'])) {
-                $this->addUsingAlias(OtpTableMap::COL_CREATED_AT, $createdAt['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(PasswordTableMap::COL_CREATED_AT, $createdAt['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($createdAt['max'])) {
-                $this->addUsingAlias(OtpTableMap::COL_CREATED_AT, $createdAt['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(PasswordTableMap::COL_CREATED_AT, $createdAt['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -493,27 +493,27 @@ abstract class OtpQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(OtpTableMap::COL_CREATED_AT, $createdAt, $comparison);
+        return $this->addUsingAlias(PasswordTableMap::COL_CREATED_AT, $createdAt, $comparison);
     }
 
     /**
      * Exclude object from result
      *
-     * @param   ChildOtp $otp Object to remove from the list of results
+     * @param   ChildPassword $password Object to remove from the list of results
      *
-     * @return $this|ChildOtpQuery The current query, for fluid interface
+     * @return $this|ChildPasswordQuery The current query, for fluid interface
      */
-    public function prune($otp = null)
+    public function prune($password = null)
     {
-        if ($otp) {
-            $this->addUsingAlias(OtpTableMap::COL_ID, $otp->getId(), Criteria::NOT_EQUAL);
+        if ($password) {
+            $this->addUsingAlias(PasswordTableMap::COL_ID, $password->getId(), Criteria::NOT_EQUAL);
         }
 
         return $this;
     }
 
     /**
-     * Deletes all rows from the otp table.
+     * Deletes all rows from the otp_password table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
@@ -521,7 +521,7 @@ abstract class OtpQuery extends ModelCriteria
     public function doDeleteAll(ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PasswordTableMap::DATABASE_NAME);
         }
 
         // use transaction because $criteria could contain info
@@ -532,8 +532,8 @@ abstract class OtpQuery extends ModelCriteria
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            OtpTableMap::clearInstancePool();
-            OtpTableMap::clearRelatedInstancePool();
+            PasswordTableMap::clearInstancePool();
+            PasswordTableMap::clearRelatedInstancePool();
 
             return $affectedRows;
         });
@@ -551,23 +551,23 @@ abstract class OtpQuery extends ModelCriteria
     public function delete(ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PasswordTableMap::DATABASE_NAME);
         }
 
         $criteria = $this;
 
         // Set the correct dbName
-        $criteria->setDbName(OtpTableMap::DATABASE_NAME);
+        $criteria->setDbName(PasswordTableMap::DATABASE_NAME);
 
         // use transaction because $criteria could contain info
         // for more than one table or we could emulating ON DELETE CASCADE, etc.
         return $con->transaction(function () use ($con, $criteria) {
             $affectedRows = 0; // initialize var to track total num of affected rows
 
-            OtpTableMap::removeInstanceFromPool($criteria);
+            PasswordTableMap::removeInstanceFromPool($criteria);
 
             $affectedRows += ModelCriteria::delete($con);
-            OtpTableMap::clearRelatedInstancePool();
+            PasswordTableMap::clearRelatedInstancePool();
 
             return $affectedRows;
         });
@@ -578,11 +578,11 @@ abstract class OtpQuery extends ModelCriteria
     /**
      * Order by create date desc
      *
-     * @return     $this|ChildOtpQuery The current query, for fluid interface
+     * @return     $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function lastCreatedFirst()
     {
-        return $this->addDescendingOrderByColumn(OtpTableMap::COL_CREATED_AT);
+        return $this->addDescendingOrderByColumn(PasswordTableMap::COL_CREATED_AT);
     }
 
     /**
@@ -590,21 +590,21 @@ abstract class OtpQuery extends ModelCriteria
      *
      * @param      int $nbDays Maximum age of in days
      *
-     * @return     $this|ChildOtpQuery The current query, for fluid interface
+     * @return     $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function recentlyCreated($nbDays = 7)
     {
-        return $this->addUsingAlias(OtpTableMap::COL_CREATED_AT, time() - $nbDays * 24 * 60 * 60, Criteria::GREATER_EQUAL);
+        return $this->addUsingAlias(PasswordTableMap::COL_CREATED_AT, time() - $nbDays * 24 * 60 * 60, Criteria::GREATER_EQUAL);
     }
 
     /**
      * Order by create date asc
      *
-     * @return     $this|ChildOtpQuery The current query, for fluid interface
+     * @return     $this|ChildPasswordQuery The current query, for fluid interface
      */
     public function firstCreatedFirst()
     {
-        return $this->addAscendingOrderByColumn(OtpTableMap::COL_CREATED_AT);
+        return $this->addAscendingOrderByColumn(PasswordTableMap::COL_CREATED_AT);
     }
 
-} // OtpQuery
+} // PasswordQuery

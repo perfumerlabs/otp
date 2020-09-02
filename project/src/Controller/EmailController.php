@@ -4,9 +4,9 @@ namespace Otp\Controller;
 
 use Otp\Model\LimitQuery;
 use Otp\Model\Map\LimitTableMap;
-use Otp\Model\Map\OtpTableMap;
-use Otp\Model\Otp;
-use Otp\Model\OtpQuery;
+use Otp\Model\Map\PasswordTableMap;
+use Otp\Model\Password;
+use Otp\Model\PasswordQuery;
 use Otp\Service\Queue;
 use Propel\Runtime\ActiveQuery\Criteria;
 
@@ -55,14 +55,14 @@ class EmailController extends LayoutController
             $not_passed_measure = $limit->getMeasure() === 'ip' ? $limit->getMeasure() : 'email';
 
             if ($limit->getMeasure() === LimitTableMap::COL_MEASURE_IP) {
-                $count = OtpQuery::create()
-                    ->filterByChannel(OtpTableMap::COL_CHANNEL_EMAIL)
+                $count = PasswordQuery::create()
+                    ->filterByChannel(PasswordTableMap::COL_CHANNEL_EMAIL)
                     ->filterByCreatedAt((new \DateTime())->modify("-$not_passed_minutes minute"), Criteria::GREATER_EQUAL)
                     ->filterByIp($ip)
                     ->count();
             } else {
-                $count = OtpQuery::create()
-                    ->filterByChannel(OtpTableMap::COL_CHANNEL_EMAIL)
+                $count = PasswordQuery::create()
+                    ->filterByChannel(PasswordTableMap::COL_CHANNEL_EMAIL)
                     ->filterByCreatedAt((new \DateTime())->modify("-$not_passed_minutes minute"), Criteria::GREATER_EQUAL)
                     ->filterByTarget($email)
                     ->count();
@@ -76,8 +76,8 @@ class EmailController extends LayoutController
         }
 
         if ($passed) {
-            $otp = new Otp();
-            $otp->setChannel(OtpTableMap::COL_CHANNEL_EMAIL);
+            $otp = new Password();
+            $otp->setChannel(PasswordTableMap::COL_CHANNEL_EMAIL);
             $otp->setExpireAt((new \DateTime())->modify("+$lifetime second"));
             $otp->setTarget($email);
             $otp->setIp($ip);

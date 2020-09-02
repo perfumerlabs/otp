@@ -13,6 +13,7 @@ return [
         'schema_dir'    => 'src/Resource/propel/schema',
         'model_dir'     => 'src/Model',
         'migration_dir' => 'src/Resource/propel/migration',
+        'migration_table' => 'otp_propel_migration',
     ],
     'otp' => [
         'queue_url' => 'OTP_QUEUE_URL',

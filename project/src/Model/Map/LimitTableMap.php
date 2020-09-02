@@ -16,7 +16,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the '_limit' table.
+ * This class defines the structure of the 'otp_limit' table.
  *
  *
  *
@@ -44,7 +44,7 @@ class LimitTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = '_limit';
+    const TABLE_NAME = 'otp_limit';
 
     /**
      * The related Propel class for this table
@@ -74,27 +74,27 @@ class LimitTableMap extends TableMap
     /**
      * the column name for the id field
      */
-    const COL_ID = '_limit.id';
+    const COL_ID = 'otp_limit.id';
 
     /**
      * the column name for the channel field
      */
-    const COL_CHANNEL = '_limit.channel';
+    const COL_CHANNEL = 'otp_limit.channel';
 
     /**
      * the column name for the measure field
      */
-    const COL_MEASURE = '_limit.measure';
+    const COL_MEASURE = 'otp_limit.measure';
 
     /**
      * the column name for the rate field
      */
-    const COL_RATE = '_limit.rate';
+    const COL_RATE = 'otp_limit.rate';
 
     /**
      * the column name for the minutes field
      */
-    const COL_MINUTES = '_limit.minutes';
+    const COL_MINUTES = 'otp_limit.minutes';
 
     /**
      * The default string format for model objects of the related table
@@ -180,13 +180,13 @@ class LimitTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('_limit');
+        $this->setName('otp_limit');
         $this->setPhpName('Limit');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Otp\\Model\\Limit');
         $this->setPackage('');
         $this->setUseIdGenerator(true);
-        $this->setPrimaryKeyMethodInfo('_limit_id_seq');
+        $this->setPrimaryKeyMethodInfo('otp_limit_id_seq');
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('channel', 'Channel', 'ENUM', true, null, null);
@@ -430,7 +430,7 @@ class LimitTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the _limit table.
+     * Deletes all rows from the otp_limit table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).

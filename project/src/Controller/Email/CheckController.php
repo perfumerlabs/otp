@@ -3,8 +3,8 @@
 namespace Otp\Controller\Email;
 
 use Otp\Controller\LayoutController;
-use Otp\Model\Map\OtpTableMap;
-use Otp\Model\OtpQuery;
+use Otp\Model\Map\PasswordTableMap;
+use Otp\Model\PasswordQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
 
 class CheckController extends LayoutController
@@ -17,10 +17,10 @@ class CheckController extends LayoutController
         $this->validateNotEmpty($email, 'email');
         $this->validateNotEmpty($password, 'password');
 
-        $valid = OtpQuery::create()
+        $valid = PasswordQuery::create()
             ->filterByPassword($password)
             ->filterByTarget($email)
-            ->filterByChannel(OtpTableMap::COL_CHANNEL_EMAIL)
+            ->filterByChannel(PasswordTableMap::COL_CHANNEL_EMAIL)
             ->filterByExpireAt(new \DateTime(), Criteria::GREATER_THAN)
             ->exists();
 

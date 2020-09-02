@@ -47,6 +47,7 @@ class Queue
                         'json' => [
                             'phones' => $phone,
                             'message' => $message,
+                            'force' => true,
                         ]
                     ]
                 ]
@@ -76,6 +77,7 @@ class Queue
                             'subject' => $subject,
                             'text' => $text,
                             'html' => $html,
+                            'force' => true,
                         ]
                     ]
                 ]

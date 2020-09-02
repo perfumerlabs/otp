@@ -2,10 +2,10 @@
 
 namespace Otp\Model;
 
-use Otp\Model\Base\Otp as BaseOtp;
+use Otp\Model\Base\Password as BasePassword;
 
 /**
- * Skeleton subclass for representing a row from the 'otp' table.
+ * Skeleton subclass for representing a row from the 'otp_password' table.
  *
  *
  *
@@ -14,7 +14,7 @@ use Otp\Model\Base\Otp as BaseOtp;
  * long as it does not already exist in the output directory.
  *
  */
-class Otp extends BaseOtp
+class Password extends BasePassword
 {
 
 }

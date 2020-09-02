@@ -19,7 +19,7 @@ use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 
 /**
- * Base class that represents a row from the '_limit' table.
+ * Base class that represents a row from the 'otp_limit' table.
  *
  *
  *
@@ -764,7 +764,7 @@ abstract class Limit implements ActiveRecordInterface
         }
         if (null === $this->id) {
             try {
-                $dataFetcher = $con->query("SELECT nextval('_limit_id_seq')");
+                $dataFetcher = $con->query("SELECT nextval('otp_limit_id_seq')");
                 $this->id = (int) $dataFetcher->fetchColumn();
             } catch (Exception $e) {
                 throw new PropelException('Unable to get sequence id.', 0, $e);
@@ -790,7 +790,7 @@ abstract class Limit implements ActiveRecordInterface
         }
 
         $sql = sprintf(
-            'INSERT INTO _limit (%s) VALUES (%s)',
+            'INSERT INTO otp_limit (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );

@@ -5,8 +5,8 @@ namespace Otp\Model\Base;
 use \DateTime;
 use \Exception;
 use \PDO;
-use Otp\Model\OtpQuery as ChildOtpQuery;
-use Otp\Model\Map\OtpTableMap;
+use Otp\Model\PasswordQuery as ChildPasswordQuery;
+use Otp\Model\Map\PasswordTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
@@ -21,18 +21,18 @@ use Propel\Runtime\Parser\AbstractParser;
 use Propel\Runtime\Util\PropelDateTime;
 
 /**
- * Base class that represents a row from the 'otp' table.
+ * Base class that represents a row from the 'otp_password' table.
  *
  *
  *
  * @package    propel.generator..Base
  */
-abstract class Otp implements ActiveRecordInterface
+abstract class Password implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Otp\\Model\\Map\\OtpTableMap';
+    const TABLE_MAP = '\\Otp\\Model\\Map\\PasswordTableMap';
 
 
     /**
@@ -119,7 +119,7 @@ abstract class Otp implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Otp\Model\Base\Otp object.
+     * Initializes internal state of Otp\Model\Base\Password object.
      */
     public function __construct()
     {
@@ -214,9 +214,9 @@ abstract class Otp implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>Otp</code> instance.  If
-     * <code>obj</code> is an instance of <code>Otp</code>, delegates to
-     * <code>equals(Otp)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>Password</code> instance.  If
+     * <code>obj</code> is an instance of <code>Password</code>, delegates to
+     * <code>equals(Password)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -282,7 +282,7 @@ abstract class Otp implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Otp The current object, for fluid interface
+     * @return $this|Password The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -364,7 +364,7 @@ abstract class Otp implements ActiveRecordInterface
         if (null === $this->channel) {
             return null;
         }
-        $valueSet = OtpTableMap::getValueSet(OtpTableMap::COL_CHANNEL);
+        $valueSet = PasswordTableMap::getValueSet(PasswordTableMap::COL_CHANNEL);
         if (!isset($valueSet[$this->channel])) {
             throw new PropelException('Unknown stored enum key: ' . $this->channel);
         }
@@ -446,7 +446,7 @@ abstract class Otp implements ActiveRecordInterface
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -456,7 +456,7 @@ abstract class Otp implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[OtpTableMap::COL_ID] = true;
+            $this->modifiedColumns[PasswordTableMap::COL_ID] = true;
         }
 
         return $this;
@@ -466,13 +466,13 @@ abstract class Otp implements ActiveRecordInterface
      * Set the value of [channel] column.
      *
      * @param  string $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @return $this|\Otp\Model\Password The current object (for fluent API support)
      * @throws \Propel\Runtime\Exception\PropelException
      */
     public function setChannel($v)
     {
         if ($v !== null) {
-            $valueSet = OtpTableMap::getValueSet(OtpTableMap::COL_CHANNEL);
+            $valueSet = PasswordTableMap::getValueSet(PasswordTableMap::COL_CHANNEL);
             if (!in_array($v, $valueSet)) {
                 throw new PropelException(sprintf('Value "%s" is not accepted in this enumerated column', $v));
             }
@@ -481,7 +481,7 @@ abstract class Otp implements ActiveRecordInterface
 
         if ($this->channel !== $v) {
             $this->channel = $v;
-            $this->modifiedColumns[OtpTableMap::COL_CHANNEL] = true;
+            $this->modifiedColumns[PasswordTableMap::COL_CHANNEL] = true;
         }
 
         return $this;
@@ -491,7 +491,7 @@ abstract class Otp implements ActiveRecordInterface
      * Set the value of [target] column.
      *
      * @param string $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setTarget($v)
     {
@@ -501,7 +501,7 @@ abstract class Otp implements ActiveRecordInterface
 
         if ($this->target !== $v) {
             $this->target = $v;
-            $this->modifiedColumns[OtpTableMap::COL_TARGET] = true;
+            $this->modifiedColumns[PasswordTableMap::COL_TARGET] = true;
         }
 
         return $this;
@@ -511,7 +511,7 @@ abstract class Otp implements ActiveRecordInterface
      * Set the value of [password] column.
      *
      * @param string $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setPassword($v)
     {
@@ -521,7 +521,7 @@ abstract class Otp implements ActiveRecordInterface
 
         if ($this->password !== $v) {
             $this->password = $v;
-            $this->modifiedColumns[OtpTableMap::COL_PASSWORD] = true;
+            $this->modifiedColumns[PasswordTableMap::COL_PASSWORD] = true;
         }
 
         return $this;
@@ -531,7 +531,7 @@ abstract class Otp implements ActiveRecordInterface
      * Set the value of [ip] column.
      *
      * @param string $v new value
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setIp($v)
     {
@@ -541,7 +541,7 @@ abstract class Otp implements ActiveRecordInterface
 
         if ($this->ip !== $v) {
             $this->ip = $v;
-            $this->modifiedColumns[OtpTableMap::COL_IP] = true;
+            $this->modifiedColumns[PasswordTableMap::COL_IP] = true;
         }
 
         return $this;
@@ -552,7 +552,7 @@ abstract class Otp implements ActiveRecordInterface
      *
      * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setExpireAt($v)
     {
@@ -560,7 +560,7 @@ abstract class Otp implements ActiveRecordInterface
         if ($this->expire_at !== null || $dt !== null) {
             if ($this->expire_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->expire_at->format("Y-m-d H:i:s.u")) {
                 $this->expire_at = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[OtpTableMap::COL_EXPIRE_AT] = true;
+                $this->modifiedColumns[PasswordTableMap::COL_EXPIRE_AT] = true;
             }
         } // if either are not null
 
@@ -572,7 +572,7 @@ abstract class Otp implements ActiveRecordInterface
      *
      * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
-     * @return $this|\Otp\Model\Otp The current object (for fluent API support)
+     * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setCreatedAt($v)
     {
@@ -580,7 +580,7 @@ abstract class Otp implements ActiveRecordInterface
         if ($this->created_at !== null || $dt !== null) {
             if ($this->created_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->created_at->format("Y-m-d H:i:s.u")) {
                 $this->created_at = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[OtpTableMap::COL_CREATED_AT] = true;
+                $this->modifiedColumns[PasswordTableMap::COL_CREATED_AT] = true;
             }
         } // if either are not null
 
@@ -623,25 +623,25 @@ abstract class Otp implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : OtpTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : PasswordTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : OtpTableMap::translateFieldName('Channel', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : PasswordTableMap::translateFieldName('Channel', TableMap::TYPE_PHPNAME, $indexType)];
             $this->channel = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : OtpTableMap::translateFieldName('Target', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : PasswordTableMap::translateFieldName('Target', TableMap::TYPE_PHPNAME, $indexType)];
             $this->target = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : OtpTableMap::translateFieldName('Password', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : PasswordTableMap::translateFieldName('Password', TableMap::TYPE_PHPNAME, $indexType)];
             $this->password = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : OtpTableMap::translateFieldName('Ip', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : PasswordTableMap::translateFieldName('Ip', TableMap::TYPE_PHPNAME, $indexType)];
             $this->ip = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : OtpTableMap::translateFieldName('ExpireAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : PasswordTableMap::translateFieldName('ExpireAt', TableMap::TYPE_PHPNAME, $indexType)];
             $this->expire_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : OtpTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : PasswordTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
             $this->resetModified();
 
@@ -651,10 +651,10 @@ abstract class Otp implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = OtpTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = PasswordTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Otp\\Model\\Otp'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Otp\\Model\\Password'), 0, $e);
         }
     }
 
@@ -696,13 +696,13 @@ abstract class Otp implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(PasswordTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildOtpQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildPasswordQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -721,8 +721,8 @@ abstract class Otp implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see Otp::setDeleted()
-     * @see Otp::isDeleted()
+     * @see Password::setDeleted()
+     * @see Password::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -731,11 +731,11 @@ abstract class Otp implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PasswordTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildOtpQuery::create()
+            $deleteQuery = ChildPasswordQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -770,7 +770,7 @@ abstract class Otp implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PasswordTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -781,7 +781,7 @@ abstract class Otp implements ActiveRecordInterface
                 // timestampable behavior
                 $time = time();
                 $highPrecision = \Propel\Runtime\Util\PropelDateTime::createHighPrecision();
-                if (!$this->isColumnModified(OtpTableMap::COL_CREATED_AT)) {
+                if (!$this->isColumnModified(PasswordTableMap::COL_CREATED_AT)) {
                     $this->setCreatedAt($highPrecision);
                 }
             } else {
@@ -795,7 +795,7 @@ abstract class Otp implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                OtpTableMap::addInstanceToPool($this);
+                PasswordTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -852,13 +852,13 @@ abstract class Otp implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[OtpTableMap::COL_ID] = true;
+        $this->modifiedColumns[PasswordTableMap::COL_ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . OtpTableMap::COL_ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . PasswordTableMap::COL_ID . ')');
         }
         if (null === $this->id) {
             try {
-                $dataFetcher = $con->query("SELECT nextval('otp_id_seq')");
+                $dataFetcher = $con->query("SELECT nextval('otp_password_id_seq')");
                 $this->id = (int) $dataFetcher->fetchColumn();
             } catch (Exception $e) {
                 throw new PropelException('Unable to get sequence id.', 0, $e);
@@ -867,30 +867,30 @@ abstract class Otp implements ActiveRecordInterface
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(OtpTableMap::COL_ID)) {
+        if ($this->isColumnModified(PasswordTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'id';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_CHANNEL)) {
+        if ($this->isColumnModified(PasswordTableMap::COL_CHANNEL)) {
             $modifiedColumns[':p' . $index++]  = 'channel';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_TARGET)) {
+        if ($this->isColumnModified(PasswordTableMap::COL_TARGET)) {
             $modifiedColumns[':p' . $index++]  = 'target';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_PASSWORD)) {
+        if ($this->isColumnModified(PasswordTableMap::COL_PASSWORD)) {
             $modifiedColumns[':p' . $index++]  = 'password';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_IP)) {
+        if ($this->isColumnModified(PasswordTableMap::COL_IP)) {
             $modifiedColumns[':p' . $index++]  = 'ip';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_EXPIRE_AT)) {
+        if ($this->isColumnModified(PasswordTableMap::COL_EXPIRE_AT)) {
             $modifiedColumns[':p' . $index++]  = 'expire_at';
         }
-        if ($this->isColumnModified(OtpTableMap::COL_CREATED_AT)) {
+        if ($this->isColumnModified(PasswordTableMap::COL_CREATED_AT)) {
             $modifiedColumns[':p' . $index++]  = 'created_at';
         }
 
         $sql = sprintf(
-            'INSERT INTO otp (%s) VALUES (%s)',
+            'INSERT INTO otp_password (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -959,7 +959,7 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = OtpTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = PasswordTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -1019,11 +1019,11 @@ abstract class Otp implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
     {
 
-        if (isset($alreadyDumpedObjects['Otp'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['Password'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Otp'][$this->hashCode()] = true;
-        $keys = OtpTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['Password'][$this->hashCode()] = true;
+        $keys = PasswordTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getChannel(),
@@ -1059,11 +1059,11 @@ abstract class Otp implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Otp\Model\Otp
+     * @return $this|\Otp\Model\Password
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = OtpTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = PasswordTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -1074,7 +1074,7 @@ abstract class Otp implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Otp\Model\Otp
+     * @return $this|\Otp\Model\Password
      */
     public function setByPosition($pos, $value)
     {
@@ -1083,7 +1083,7 @@ abstract class Otp implements ActiveRecordInterface
                 $this->setId($value);
                 break;
             case 1:
-                $valueSet = OtpTableMap::getValueSet(OtpTableMap::COL_CHANNEL);
+                $valueSet = PasswordTableMap::getValueSet(PasswordTableMap::COL_CHANNEL);
                 if (isset($valueSet[$value])) {
                     $value = $valueSet[$value];
                 }
@@ -1128,7 +1128,7 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = OtpTableMap::getFieldNames($keyType);
+        $keys = PasswordTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
@@ -1170,7 +1170,7 @@ abstract class Otp implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Otp\Model\Otp The current object, for fluid interface
+     * @return $this|\Otp\Model\Password The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1190,28 +1190,28 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(OtpTableMap::DATABASE_NAME);
+        $criteria = new Criteria(PasswordTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(OtpTableMap::COL_ID)) {
-            $criteria->add(OtpTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(PasswordTableMap::COL_ID)) {
+            $criteria->add(PasswordTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_CHANNEL)) {
-            $criteria->add(OtpTableMap::COL_CHANNEL, $this->channel);
+        if ($this->isColumnModified(PasswordTableMap::COL_CHANNEL)) {
+            $criteria->add(PasswordTableMap::COL_CHANNEL, $this->channel);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_TARGET)) {
-            $criteria->add(OtpTableMap::COL_TARGET, $this->target);
+        if ($this->isColumnModified(PasswordTableMap::COL_TARGET)) {
+            $criteria->add(PasswordTableMap::COL_TARGET, $this->target);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_PASSWORD)) {
-            $criteria->add(OtpTableMap::COL_PASSWORD, $this->password);
+        if ($this->isColumnModified(PasswordTableMap::COL_PASSWORD)) {
+            $criteria->add(PasswordTableMap::COL_PASSWORD, $this->password);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_IP)) {
-            $criteria->add(OtpTableMap::COL_IP, $this->ip);
+        if ($this->isColumnModified(PasswordTableMap::COL_IP)) {
+            $criteria->add(PasswordTableMap::COL_IP, $this->ip);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_EXPIRE_AT)) {
-            $criteria->add(OtpTableMap::COL_EXPIRE_AT, $this->expire_at);
+        if ($this->isColumnModified(PasswordTableMap::COL_EXPIRE_AT)) {
+            $criteria->add(PasswordTableMap::COL_EXPIRE_AT, $this->expire_at);
         }
-        if ($this->isColumnModified(OtpTableMap::COL_CREATED_AT)) {
-            $criteria->add(OtpTableMap::COL_CREATED_AT, $this->created_at);
+        if ($this->isColumnModified(PasswordTableMap::COL_CREATED_AT)) {
+            $criteria->add(PasswordTableMap::COL_CREATED_AT, $this->created_at);
         }
 
         return $criteria;
@@ -1229,8 +1229,8 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildOtpQuery::create();
-        $criteria->add(OtpTableMap::COL_ID, $this->id);
+        $criteria = ChildPasswordQuery::create();
+        $criteria->add(PasswordTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -1292,7 +1292,7 @@ abstract class Otp implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Otp\Model\Otp (or compatible) type.
+     * @param      object $copyObj An object of \Otp\Model\Password (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1320,7 +1320,7 @@ abstract class Otp implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Otp\Model\Otp Clone of current object.
+     * @return \Otp\Model\Password Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1376,7 +1376,7 @@ abstract class Otp implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(OtpTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(PasswordTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**

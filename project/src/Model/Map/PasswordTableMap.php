@@ -2,8 +2,8 @@
 
 namespace Otp\Model\Map;
 
-use Otp\Model\Otp;
-use Otp\Model\OtpQuery;
+use Otp\Model\Password;
+use Otp\Model\PasswordQuery;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\InstancePoolTrait;
@@ -16,7 +16,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the 'otp' table.
+ * This class defines the structure of the 'otp_password' table.
  *
  *
  *
@@ -26,7 +26,7 @@ use Propel\Runtime\Map\TableMapTrait;
  * (i.e. if it's a text column type).
  *
  */
-class OtpTableMap extends TableMap
+class PasswordTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -34,7 +34,7 @@ class OtpTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = '.Map.OtpTableMap';
+    const CLASS_NAME = '.Map.PasswordTableMap';
 
     /**
      * The default database name for this class
@@ -44,17 +44,17 @@ class OtpTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'otp';
+    const TABLE_NAME = 'otp_password';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Otp\\Model\\Otp';
+    const OM_CLASS = '\\Otp\\Model\\Password';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'Otp';
+    const CLASS_DEFAULT = 'Password';
 
     /**
      * The total number of columns
@@ -74,37 +74,37 @@ class OtpTableMap extends TableMap
     /**
      * the column name for the id field
      */
-    const COL_ID = 'otp.id';
+    const COL_ID = 'otp_password.id';
 
     /**
      * the column name for the channel field
      */
-    const COL_CHANNEL = 'otp.channel';
+    const COL_CHANNEL = 'otp_password.channel';
 
     /**
      * the column name for the target field
      */
-    const COL_TARGET = 'otp.target';
+    const COL_TARGET = 'otp_password.target';
 
     /**
      * the column name for the password field
      */
-    const COL_PASSWORD = 'otp.password';
+    const COL_PASSWORD = 'otp_password.password';
 
     /**
      * the column name for the ip field
      */
-    const COL_IP = 'otp.ip';
+    const COL_IP = 'otp_password.ip';
 
     /**
      * the column name for the expire_at field
      */
-    const COL_EXPIRE_AT = 'otp.expire_at';
+    const COL_EXPIRE_AT = 'otp_password.expire_at';
 
     /**
      * the column name for the created_at field
      */
-    const COL_CREATED_AT = 'otp.created_at';
+    const COL_CREATED_AT = 'otp_password.created_at';
 
     /**
      * The default string format for model objects of the related table
@@ -124,7 +124,7 @@ class OtpTableMap extends TableMap
     protected static $fieldNames = array (
         self::TYPE_PHPNAME       => array('Id', 'Channel', 'Target', 'Password', 'Ip', 'ExpireAt', 'CreatedAt', ),
         self::TYPE_CAMELNAME     => array('id', 'channel', 'target', 'password', 'ip', 'expireAt', 'createdAt', ),
-        self::TYPE_COLNAME       => array(OtpTableMap::COL_ID, OtpTableMap::COL_CHANNEL, OtpTableMap::COL_TARGET, OtpTableMap::COL_PASSWORD, OtpTableMap::COL_IP, OtpTableMap::COL_EXPIRE_AT, OtpTableMap::COL_CREATED_AT, ),
+        self::TYPE_COLNAME       => array(PasswordTableMap::COL_ID, PasswordTableMap::COL_CHANNEL, PasswordTableMap::COL_TARGET, PasswordTableMap::COL_PASSWORD, PasswordTableMap::COL_IP, PasswordTableMap::COL_EXPIRE_AT, PasswordTableMap::COL_CREATED_AT, ),
         self::TYPE_FIELDNAME     => array('id', 'channel', 'target', 'password', 'ip', 'expire_at', 'created_at', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
     );
@@ -138,14 +138,14 @@ class OtpTableMap extends TableMap
     protected static $fieldKeys = array (
         self::TYPE_PHPNAME       => array('Id' => 0, 'Channel' => 1, 'Target' => 2, 'Password' => 3, 'Ip' => 4, 'ExpireAt' => 5, 'CreatedAt' => 6, ),
         self::TYPE_CAMELNAME     => array('id' => 0, 'channel' => 1, 'target' => 2, 'password' => 3, 'ip' => 4, 'expireAt' => 5, 'createdAt' => 6, ),
-        self::TYPE_COLNAME       => array(OtpTableMap::COL_ID => 0, OtpTableMap::COL_CHANNEL => 1, OtpTableMap::COL_TARGET => 2, OtpTableMap::COL_PASSWORD => 3, OtpTableMap::COL_IP => 4, OtpTableMap::COL_EXPIRE_AT => 5, OtpTableMap::COL_CREATED_AT => 6, ),
+        self::TYPE_COLNAME       => array(PasswordTableMap::COL_ID => 0, PasswordTableMap::COL_CHANNEL => 1, PasswordTableMap::COL_TARGET => 2, PasswordTableMap::COL_PASSWORD => 3, PasswordTableMap::COL_IP => 4, PasswordTableMap::COL_EXPIRE_AT => 5, PasswordTableMap::COL_CREATED_AT => 6, ),
         self::TYPE_FIELDNAME     => array('id' => 0, 'channel' => 1, 'target' => 2, 'password' => 3, 'ip' => 4, 'expire_at' => 5, 'created_at' => 6, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
     );
 
     /** The enumerated values for this table */
     protected static $enumValueSets = array(
-                OtpTableMap::COL_CHANNEL => array(
+                PasswordTableMap::COL_CHANNEL => array(
                             self::COL_CHANNEL_SMS,
             self::COL_CHANNEL_EMAIL,
         ),
@@ -182,13 +182,13 @@ class OtpTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('otp');
-        $this->setPhpName('Otp');
+        $this->setName('otp_password');
+        $this->setPhpName('Password');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Otp\\Model\\Otp');
+        $this->setClassName('\\Otp\\Model\\Password');
         $this->setPackage('');
         $this->setUseIdGenerator(true);
-        $this->setPrimaryKeyMethodInfo('otp_id_seq');
+        $this->setPrimaryKeyMethodInfo('otp_password_id_seq');
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('channel', 'Channel', 'ENUM', false, null, null);
@@ -280,7 +280,7 @@ class OtpTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? OtpTableMap::CLASS_DEFAULT : OtpTableMap::OM_CLASS;
+        return $withPrefix ? PasswordTableMap::CLASS_DEFAULT : PasswordTableMap::OM_CLASS;
     }
 
     /**
@@ -294,22 +294,22 @@ class OtpTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (Otp object, last column rank)
+     * @return array           (Password object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = OtpTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = OtpTableMap::getInstanceFromPool($key))) {
+        $key = PasswordTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = PasswordTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + OtpTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + PasswordTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = OtpTableMap::OM_CLASS;
-            /** @var Otp $obj */
+            $cls = PasswordTableMap::OM_CLASS;
+            /** @var Password $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            OtpTableMap::addInstanceToPool($obj, $key);
+            PasswordTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -332,18 +332,18 @@ class OtpTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = OtpTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = OtpTableMap::getInstanceFromPool($key))) {
+            $key = PasswordTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = PasswordTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var Otp $obj */
+                /** @var Password $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                OtpTableMap::addInstanceToPool($obj, $key);
+                PasswordTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -364,13 +364,13 @@ class OtpTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(OtpTableMap::COL_ID);
-            $criteria->addSelectColumn(OtpTableMap::COL_CHANNEL);
-            $criteria->addSelectColumn(OtpTableMap::COL_TARGET);
-            $criteria->addSelectColumn(OtpTableMap::COL_PASSWORD);
-            $criteria->addSelectColumn(OtpTableMap::COL_IP);
-            $criteria->addSelectColumn(OtpTableMap::COL_EXPIRE_AT);
-            $criteria->addSelectColumn(OtpTableMap::COL_CREATED_AT);
+            $criteria->addSelectColumn(PasswordTableMap::COL_ID);
+            $criteria->addSelectColumn(PasswordTableMap::COL_CHANNEL);
+            $criteria->addSelectColumn(PasswordTableMap::COL_TARGET);
+            $criteria->addSelectColumn(PasswordTableMap::COL_PASSWORD);
+            $criteria->addSelectColumn(PasswordTableMap::COL_IP);
+            $criteria->addSelectColumn(PasswordTableMap::COL_EXPIRE_AT);
+            $criteria->addSelectColumn(PasswordTableMap::COL_CREATED_AT);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.channel');
@@ -391,7 +391,7 @@ class OtpTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(OtpTableMap::DATABASE_NAME)->getTable(OtpTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(PasswordTableMap::DATABASE_NAME)->getTable(PasswordTableMap::TABLE_NAME);
     }
 
     /**
@@ -399,16 +399,16 @@ class OtpTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(OtpTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(OtpTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new OtpTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(PasswordTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(PasswordTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new PasswordTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a Otp or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a Password or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Otp object or primary key or array of primary keys
+     * @param mixed               $values Criteria or Password object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -419,27 +419,27 @@ class OtpTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PasswordTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Otp\Model\Otp) { // it's a model object
+        } elseif ($values instanceof \Otp\Model\Password) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(OtpTableMap::DATABASE_NAME);
-            $criteria->add(OtpTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(PasswordTableMap::DATABASE_NAME);
+            $criteria->add(PasswordTableMap::COL_ID, (array) $values, Criteria::IN);
         }
 
-        $query = OtpQuery::create()->mergeWith($criteria);
+        $query = PasswordQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            OtpTableMap::clearInstancePool();
+            PasswordTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                OtpTableMap::removeInstanceFromPool($singleval);
+                PasswordTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -447,20 +447,20 @@ class OtpTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the otp table.
+     * Deletes all rows from the otp_password table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return OtpQuery::create()->doDeleteAll($con);
+        return PasswordQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a Otp or Criteria object.
+     * Performs an INSERT on the database, given a Password or Criteria object.
      *
-     * @param mixed               $criteria Criteria or Otp object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or Password object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -469,22 +469,22 @@ class OtpTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(OtpTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PasswordTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from Otp object
+            $criteria = $criteria->buildCriteria(); // build Criteria from Password object
         }
 
-        if ($criteria->containsKey(OtpTableMap::COL_ID) && $criteria->keyContainsValue(OtpTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.OtpTableMap::COL_ID.')');
+        if ($criteria->containsKey(PasswordTableMap::COL_ID) && $criteria->keyContainsValue(PasswordTableMap::COL_ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.PasswordTableMap::COL_ID.')');
         }
 
 
         // Set the correct dbName
-        $query = OtpQuery::create()->mergeWith($criteria);
+        $query = PasswordQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -493,7 +493,7 @@ class OtpTableMap extends TableMap
         });
     }
 
-} // OtpTableMap
+} // PasswordTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-OtpTableMap::buildTableMap();
+PasswordTableMap::buildTableMap();

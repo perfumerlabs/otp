@@ -4,10 +4,10 @@ use Propel\Generator\Manager\MigrationManager;
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1598359017.
- * Generated on 2020-08-25 12:36:57 by otp
+ * up to version 1599035410.
+ * Generated on 2020-09-02 08:30:10 by otp
  */
-class PropelMigration_1598359017
+class PropelMigration_1599035410
 {
     public $comment = '';
 
@@ -39,11 +39,31 @@ class PropelMigration_1598359017
      */
     public function getUpSQL()
     {
-        return array(
+        return array (
             'otp' => '
 BEGIN;
 
-CREATE TABLE "limit"
+CREATE TABLE "otp_password"
+(
+    "id" serial NOT NULL,
+    "channel" INT2,
+    "target" VARCHAR(255),
+    "password" VARCHAR(255),
+    "ip" VARCHAR(255),
+    "expire_at" TIMESTAMP,
+    "created_at" TIMESTAMP,
+    PRIMARY KEY ("id")
+);
+
+CREATE INDEX "otp_password_i_1d79fd" ON "otp_password" ("target","password");
+
+CREATE INDEX "otp_password_i_fbfe9a" ON "otp_password" ("expire_at");
+
+CREATE INDEX "otp_password_i_d404ac" ON "otp_password" ("created_at");
+
+CREATE INDEX "otp_password_i_1d579d" ON "otp_password" ("ip");
+
+CREATE TABLE "otp_limit"
 (
     "id" serial NOT NULL,
     "channel" INT2 NOT NULL,
@@ -52,14 +72,6 @@ CREATE TABLE "limit"
     "minutes" INTEGER NOT NULL,
     PRIMARY KEY ("id")
 );
-
-ALTER TABLE "otp"
-
-  ADD "ip" VARCHAR(255);
-
-CREATE INDEX "otp_i_d404ac" ON "otp" ("created_at");
-
-CREATE INDEX "otp_i_1d579d" ON "otp" ("ip");
 
 COMMIT;
 ',
@@ -74,22 +86,17 @@ COMMIT;
      */
     public function getDownSQL()
     {
-        return array(
+        return array (
             'otp' => '
 BEGIN;
 
-DROP TABLE IF EXISTS "limit" CASCADE;
+DROP TABLE IF EXISTS "otp_password" CASCADE;
 
-DROP INDEX "otp_i_d404ac";
-
-DROP INDEX "otp_i_1d579d";
-
-ALTER TABLE "otp"
-
-  DROP COLUMN "ip";
+DROP TABLE IF EXISTS "otp_limit" CASCADE;
 
 COMMIT;
 ',
         );
     }
+
 }

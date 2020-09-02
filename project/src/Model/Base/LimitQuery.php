@@ -15,7 +15,7 @@ use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
 
 /**
- * Base class that represents a query for the '_limit' table.
+ * Base class that represents a query for the 'otp_limit' table.
  *
  *
  *
@@ -161,7 +161,7 @@ abstract class LimitQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, channel, measure, rate, minutes FROM _limit WHERE id = :p0';
+        $sql = 'SELECT id, channel, measure, rate, minutes FROM otp_limit WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -457,7 +457,7 @@ abstract class LimitQuery extends ModelCriteria
     }
 
     /**
-     * Deletes all rows from the _limit table.
+     * Deletes all rows from the otp_limit table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).

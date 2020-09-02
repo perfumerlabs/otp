@@ -2,10 +2,10 @@
 
 namespace Otp\Model;
 
-use Otp\Model\Base\OtpQuery as BaseOtpQuery;
+use Otp\Model\Base\PasswordQuery as BasePasswordQuery;
 
 /**
- * Skeleton subclass for performing query and update operations on the 'otp' table.
+ * Skeleton subclass for performing query and update operations on the 'otp_password' table.
  *
  *
  *
@@ -14,7 +14,7 @@ use Otp\Model\Base\OtpQuery as BaseOtpQuery;
  * long as it does not already exist in the output directory.
  *
  */
-class OtpQuery extends BaseOtpQuery
+class PasswordQuery extends BasePasswordQuery
 {
 
 }
