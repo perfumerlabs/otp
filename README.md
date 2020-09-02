@@ -21,7 +21,7 @@ docker run \
 -e PG_DATABASE=otp_db \
 -e PG_USER=user \
 -e PG_PASSWORD=password \
--d perfumerlabs/otp:v1.0.0
+-d perfumerlabs/otp:v2.0.0
 ```
 
 Database must be created before container startup.
