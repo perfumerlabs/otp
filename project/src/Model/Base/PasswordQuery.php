@@ -43,16 +43,16 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildPasswordQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildPasswordQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildPassword findOne(ConnectionInterface $con = null) Return the first ChildPassword matching the query
+ * @method     ChildPassword|null findOne(ConnectionInterface $con = null) Return the first ChildPassword matching the query
  * @method     ChildPassword findOneOrCreate(ConnectionInterface $con = null) Return the first ChildPassword matching the query, or a new ChildPassword object populated from the query conditions when no match is found
  *
- * @method     ChildPassword findOneById(int $id) Return the first ChildPassword filtered by the id column
- * @method     ChildPassword findOneByChannel(int $channel) Return the first ChildPassword filtered by the channel column
- * @method     ChildPassword findOneByTarget(string $target) Return the first ChildPassword filtered by the target column
- * @method     ChildPassword findOneByPassword(string $password) Return the first ChildPassword filtered by the password column
- * @method     ChildPassword findOneByIp(string $ip) Return the first ChildPassword filtered by the ip column
- * @method     ChildPassword findOneByExpireAt(string $expire_at) Return the first ChildPassword filtered by the expire_at column
- * @method     ChildPassword findOneByCreatedAt(string $created_at) Return the first ChildPassword filtered by the created_at column *
+ * @method     ChildPassword|null findOneById(int $id) Return the first ChildPassword filtered by the id column
+ * @method     ChildPassword|null findOneByChannel(int $channel) Return the first ChildPassword filtered by the channel column
+ * @method     ChildPassword|null findOneByTarget(string $target) Return the first ChildPassword filtered by the target column
+ * @method     ChildPassword|null findOneByPassword(string $password) Return the first ChildPassword filtered by the password column
+ * @method     ChildPassword|null findOneByIp(string $ip) Return the first ChildPassword filtered by the ip column
+ * @method     ChildPassword|null findOneByExpireAt(string $expire_at) Return the first ChildPassword filtered by the expire_at column
+ * @method     ChildPassword|null findOneByCreatedAt(string $created_at) Return the first ChildPassword filtered by the created_at column *
 
  * @method     ChildPassword requirePk($key, ConnectionInterface $con = null) Return the ChildPassword by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPassword requireOne(ConnectionInterface $con = null) Return the first ChildPassword matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found

@@ -71,42 +71,42 @@ abstract class Password implements ActiveRecordInterface
     /**
      * The value for the channel field.
      *
-     * @var        int
+     * @var        int|null
      */
     protected $channel;
 
     /**
      * The value for the target field.
      *
-     * @var        string
+     * @var        string|null
      */
     protected $target;
 
     /**
      * The value for the password field.
      *
-     * @var        string
+     * @var        string|null
      */
     protected $password;
 
     /**
      * The value for the ip field.
      *
-     * @var        string
+     * @var        string|null
      */
     protected $ip;
 
     /**
      * The value for the expire_at field.
      *
-     * @var        DateTime
+     * @var        DateTime|null
      */
     protected $expire_at;
 
     /**
      * The value for the created_at field.
      *
-     * @var        DateTime
+     * @var        DateTime|null
      */
     protected $created_at;
 
@@ -282,7 +282,7 @@ abstract class Password implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Password The current object, for fluid interface
+     * @return $this The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -296,11 +296,11 @@ abstract class Password implements ActiveRecordInterface
      *
      * @param  string  $msg
      * @param  int     $priority One of the Propel::LOG_* logging levels
-     * @return boolean
+     * @return void
      */
     protected function log($msg, $priority = Propel::LOG_INFO)
     {
-        return Propel::log(get_class($this) . ': ' . $msg, $priority);
+        Propel::log(get_class($this) . ': ' . $msg, $priority);
     }
 
     /**
@@ -356,7 +356,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Get the [channel] column value.
      *
-     * @return string
+     * @return string|null
      * @throws \Propel\Runtime\Exception\PropelException
      */
     public function getChannel()
@@ -375,7 +375,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Get the [target] column value.
      *
-     * @return string
+     * @return string|null
      */
     public function getTarget()
     {
@@ -385,7 +385,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Get the [password] column value.
      *
-     * @return string
+     * @return string|null
      */
     public function getPassword()
     {
@@ -395,7 +395,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Get the [ip] column value.
      *
-     * @return string
+     * @return string|null
      */
     public function getIp()
     {
@@ -406,14 +406,14 @@ abstract class Password implements ActiveRecordInterface
      * Get the [optionally formatted] temporal [expire_at] column value.
      *
      *
-     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
+     * @param string|null $format The date/time format string (either date()-style or strftime()-style).
+     *   If format is NULL, then the raw DateTime object will be returned.
      *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL
+     * @return string|DateTime|null Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL
      *
      * @throws PropelException - if unable to parse/validate the date/time value.
      */
-    public function getExpireAt($format = NULL)
+    public function getExpireAt($format = null)
     {
         if ($format === null) {
             return $this->expire_at;
@@ -426,14 +426,14 @@ abstract class Password implements ActiveRecordInterface
      * Get the [optionally formatted] temporal [created_at] column value.
      *
      *
-     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
+     * @param string|null $format The date/time format string (either date()-style or strftime()-style).
+     *   If format is NULL, then the raw DateTime object will be returned.
      *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL
+     * @return string|DateTime|null Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL
      *
      * @throws PropelException - if unable to parse/validate the date/time value.
      */
-    public function getCreatedAt($format = NULL)
+    public function getCreatedAt($format = null)
     {
         if ($format === null) {
             return $this->created_at;
@@ -445,7 +445,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Set the value of [id] column.
      *
-     * @param int $v new value
+     * @param int $v New value
      * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setId($v)
@@ -465,7 +465,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Set the value of [channel] column.
      *
-     * @param  string $v new value
+     * @param  string|null $v new value
      * @return $this|\Otp\Model\Password The current object (for fluent API support)
      * @throws \Propel\Runtime\Exception\PropelException
      */
@@ -490,7 +490,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Set the value of [target] column.
      *
-     * @param string $v new value
+     * @param string|null $v New value
      * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setTarget($v)
@@ -510,7 +510,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Set the value of [password] column.
      *
-     * @param string $v new value
+     * @param string|null $v New value
      * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setPassword($v)
@@ -530,7 +530,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Set the value of [ip] column.
      *
-     * @param string $v new value
+     * @param string|null $v New value
      * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
     public function setIp($v)
@@ -550,7 +550,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Sets the value of [expire_at] column to a normalized version of the date/time value specified.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
+     * @param  string|integer|\DateTimeInterface|null $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
      * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
@@ -570,7 +570,7 @@ abstract class Password implements ActiveRecordInterface
     /**
      * Sets the value of [created_at] column to a normalized version of the date/time value specified.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
+     * @param  string|integer|\DateTimeInterface|null $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
      * @return $this|\Otp\Model\Password The current object (for fluent API support)
      */
@@ -1034,11 +1034,11 @@ abstract class Password implements ActiveRecordInterface
             $keys[6] => $this->getCreatedAt(),
         );
         if ($result[$keys[5]] instanceof \DateTimeInterface) {
-            $result[$keys[5]] = $result[$keys[5]]->format('c');
+            $result[$keys[5]] = $result[$keys[5]]->format('Y-m-d H:i:s.u');
         }
 
         if ($result[$keys[6]] instanceof \DateTimeInterface) {
-            $result[$keys[6]] = $result[$keys[6]]->format('c');
+            $result[$keys[6]] = $result[$keys[6]]->format('Y-m-d H:i:s.u');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -1386,10 +1386,7 @@ abstract class Password implements ActiveRecordInterface
      */
     public function preSave(ConnectionInterface $con = null)
     {
-        if (is_callable('parent::preSave')) {
-            return parent::preSave($con);
-        }
-        return true;
+                return true;
     }
 
     /**
@@ -1398,10 +1395,7 @@ abstract class Password implements ActiveRecordInterface
      */
     public function postSave(ConnectionInterface $con = null)
     {
-        if (is_callable('parent::postSave')) {
-            parent::postSave($con);
-        }
-    }
+            }
 
     /**
      * Code to be run before inserting to database
@@ -1410,10 +1404,7 @@ abstract class Password implements ActiveRecordInterface
      */
     public function preInsert(ConnectionInterface $con = null)
     {
-        if (is_callable('parent::preInsert')) {
-            return parent::preInsert($con);
-        }
-        return true;
+                return true;
     }
 
     /**
@@ -1422,10 +1413,7 @@ abstract class Password implements ActiveRecordInterface
      */
     public function postInsert(ConnectionInterface $con = null)
     {
-        if (is_callable('parent::postInsert')) {
-            parent::postInsert($con);
-        }
-    }
+            }
 
     /**
      * Code to be run before updating the object in database
@@ -1434,10 +1422,7 @@ abstract class Password implements ActiveRecordInterface
      */
     public function preUpdate(ConnectionInterface $con = null)
     {
-        if (is_callable('parent::preUpdate')) {
-            return parent::preUpdate($con);
-        }
-        return true;
+                return true;
     }
 
     /**
@@ -1446,10 +1431,7 @@ abstract class Password implements ActiveRecordInterface
      */
     public function postUpdate(ConnectionInterface $con = null)
     {
-        if (is_callable('parent::postUpdate')) {
-            parent::postUpdate($con);
-        }
-    }
+            }
 
     /**
      * Code to be run before deleting the object in database
@@ -1458,10 +1440,7 @@ abstract class Password implements ActiveRecordInterface
      */
     public function preDelete(ConnectionInterface $con = null)
     {
-        if (is_callable('parent::preDelete')) {
-            return parent::preDelete($con);
-        }
-        return true;
+                return true;
     }
 
     /**
@@ -1470,10 +1449,7 @@ abstract class Password implements ActiveRecordInterface
      */
     public function postDelete(ConnectionInterface $con = null)
     {
-        if (is_callable('parent::postDelete')) {
-            parent::postDelete($con);
-        }
-    }
+            }
 
 
     /**

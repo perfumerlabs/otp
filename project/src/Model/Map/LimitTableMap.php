@@ -24,7 +24,6 @@ use Propel\Runtime\Map\TableMapTrait;
  * For example, the createSelectSql() method checks the type of a given column used in an
  * ORDER BY clause to know whether it needs to apply SQL to make the ORDER BY case-insensitive
  * (i.e. if it's a text column type).
- *
  */
 class LimitTableMap extends TableMap
 {
@@ -136,6 +135,55 @@ class LimitTableMap extends TableMap
         self::TYPE_FIELDNAME     => array('id' => 0, 'channel' => 1, 'measure' => 2, 'rate' => 3, 'minutes' => 4, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
+
+    /**
+     * Holds a list of column names and their normalized version.
+     *
+     * @var string[]
+     */
+    protected $normalizedColumnNameMap = [
+
+        'Id' => 'ID',
+        'Limit.Id' => 'ID',
+        'id' => 'ID',
+        'limit.id' => 'ID',
+        'LimitTableMap::COL_ID' => 'ID',
+        'COL_ID' => 'ID',
+        'id' => 'ID',
+        'otp_limit.id' => 'ID',
+        'Channel' => 'CHANNEL',
+        'Limit.Channel' => 'CHANNEL',
+        'channel' => 'CHANNEL',
+        'limit.channel' => 'CHANNEL',
+        'LimitTableMap::COL_CHANNEL' => 'CHANNEL',
+        'COL_CHANNEL' => 'CHANNEL',
+        'channel' => 'CHANNEL',
+        'otp_limit.channel' => 'CHANNEL',
+        'Measure' => 'MEASURE',
+        'Limit.Measure' => 'MEASURE',
+        'measure' => 'MEASURE',
+        'limit.measure' => 'MEASURE',
+        'LimitTableMap::COL_MEASURE' => 'MEASURE',
+        'COL_MEASURE' => 'MEASURE',
+        'measure' => 'MEASURE',
+        'otp_limit.measure' => 'MEASURE',
+        'Rate' => 'RATE',
+        'Limit.Rate' => 'RATE',
+        'rate' => 'RATE',
+        'limit.rate' => 'RATE',
+        'LimitTableMap::COL_RATE' => 'RATE',
+        'COL_RATE' => 'RATE',
+        'rate' => 'RATE',
+        'otp_limit.rate' => 'RATE',
+        'Minutes' => 'MINUTES',
+        'Limit.Minutes' => 'MINUTES',
+        'minutes' => 'MINUTES',
+        'limit.minutes' => 'MINUTES',
+        'LimitTableMap::COL_MINUTES' => 'MINUTES',
+        'COL_MINUTES' => 'MINUTES',
+        'minutes' => 'MINUTES',
+        'otp_limit.minutes' => 'MINUTES',
+    ];
 
     /** The enumerated values for this table */
     protected static $enumValueSets = array(
@@ -362,6 +410,34 @@ class LimitTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.measure');
             $criteria->addSelectColumn($alias . '.rate');
             $criteria->addSelectColumn($alias . '.minutes');
+        }
+    }
+
+    /**
+     * Remove all the columns needed to create a new object.
+     *
+     * Note: any columns that were marked with lazyLoad="true" in the
+     * XML schema will not be removed as they are only loaded on demand.
+     *
+     * @param Criteria $criteria object containing the columns to remove.
+     * @param string   $alias    optional table alias
+     * @throws PropelException Any exceptions caught during processing will be
+     *                         rethrown wrapped into a PropelException.
+     */
+    public static function removeSelectColumns(Criteria $criteria, $alias = null)
+    {
+        if (null === $alias) {
+            $criteria->removeSelectColumn(LimitTableMap::COL_ID);
+            $criteria->removeSelectColumn(LimitTableMap::COL_CHANNEL);
+            $criteria->removeSelectColumn(LimitTableMap::COL_MEASURE);
+            $criteria->removeSelectColumn(LimitTableMap::COL_RATE);
+            $criteria->removeSelectColumn(LimitTableMap::COL_MINUTES);
+        } else {
+            $criteria->removeSelectColumn($alias . '.id');
+            $criteria->removeSelectColumn($alias . '.channel');
+            $criteria->removeSelectColumn($alias . '.measure');
+            $criteria->removeSelectColumn($alias . '.rate');
+            $criteria->removeSelectColumn($alias . '.minutes');
         }
     }
 

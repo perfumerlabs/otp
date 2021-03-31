@@ -10,7 +10,6 @@ Installation
 ```bash
 docker run \
 -p 80:80/tcp \
--e OTP_HOST=otp \
 -e OTP_QUEUE_URL="http://queue" \
 -e OTP_SMS_URL="http://sms" \
 -e OTP_SMS_WORKER=sms \
@@ -21,7 +20,7 @@ docker run \
 -e PG_DATABASE=otp_db \
 -e PG_USER=user \
 -e PG_PASSWORD=password \
--d perfumerlabs/otp:v2.0.0
+-d perfumerlabs/otp:v2.1.0
 ```
 
 Database must be created before container startup.
@@ -29,7 +28,6 @@ Database must be created before container startup.
 Environment variables
 =====================
 
-- OTP_HOST - server domain (without http://). Required.
 - OTP_QUEUE_URL - [Queue](https://github.com/perfumerlabs/queue) service URL. Required.
 - OTP_SMS_URL [SMS](https://github.com/perfumerlabs/sms) service URL. Required.
 - OTP_SMS_WORKER - worker that handles sms queueing. Required.
@@ -40,6 +38,7 @@ Environment variables
 - PG_HOST - PostgreSQL host. Required.
 - PG_PORT - PostgreSQL port. Default value is 5432.
 - PG_DATABASE - PostgreSQL database name. Required.
+- PG_SCHEMA - PostgreSQL database schema. Default is "public".
 - PG_USER - PostgreSQL user name. Required.
 - PG_PASSWORD - PostgreSQL user password. Required.
 

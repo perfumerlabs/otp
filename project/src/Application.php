@@ -19,6 +19,8 @@ class Application extends \Perfumer\Framework\Application\Application
         $this->addDefinitions(__DIR__ . '/../src/Resource/config/services_cli.php',  'cli');
         $this->addResources(__DIR__ . '/../src/Resource/config/resources_shared.php');
 
+        $this->addResources(__DIR__ . '/../env.php');
+
         $this->addModule(new HttpModule(),       'http');
         $this->addModule(new ControllerModule(), 'http');
         $this->addModule(new ConsoleModule(),    'cli');

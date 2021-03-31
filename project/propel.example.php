@@ -6,14 +6,14 @@ return [
             'connections' => [
                 'otp' => [
                     'adapter' => 'pgsql',
-                    'dsn' => 'pgsql:host=PG_HOST;port=PG_PORT;dbname=PG_DATABASE',
-                    'user' => 'PG_USER',
-                    'password' => 'PG_PASSWORD',
+                    'dsn' => 'pgsql:host=db;port=5432;dbname=otp',
+                    'user' => 'postgres',
+                    'password' => 'postgres',
                     'settings' => [
                         'charset' => 'utf8',
                         'queries' => [
                             'utf8' => "SET NAMES 'UTF8'",
-                            'schema' => "SET search_path TO PG_SCHEMA"
+                            'schema' => "SET search_path TO public"
                         ]
                     ],
                     'attributes' => []

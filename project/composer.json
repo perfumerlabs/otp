@@ -11,13 +11,13 @@
         }
     ],
     "require": {
-        "perfumer/framework": "0.9.1",
-        "propel/propel": "2.0.0-alpha8",
+        "perfumer/framework": "0.9.7",
+        "propel/propel": "2.0.0-alpha12",
         "pwfisher/command-line-php": "dev-master",
-        "symfony/console": "4.*",
+        "symfony/console": "5.*",
         "symfony/http-foundation": "5.*",
         "nikic/fast-route": "1.*",
-        "guzzlehttp/guzzle": "6.*",
+        "guzzlehttp/guzzle": "7.*",
         "ext-json": "*"
     },
     "require-dev": {

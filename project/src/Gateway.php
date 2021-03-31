@@ -8,7 +8,7 @@ class Gateway extends CompositeGateway
 {
     protected function configure(): void
     {
-        $this->addModule('otp', 'OTP_HOST', null, 'http');
-        $this->addModule('otp', 'otp',      null, 'cli');
+        $this->addModule('otp', null,  null, 'http');
+        $this->addModule('otp', 'otp', null, 'cli');
     }
 }

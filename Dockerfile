@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-MAINTAINER Ilyas Makashev <mehmatovec@gmail.com>
+LABEL authors="Ilyas Makashev mehmatovec@gmail.com"
 
 RUN set -x \
     && apt-get update \
@@ -54,9 +54,9 @@ RUN set -x\
 ENV PG_HOST postgresql
 ENV PG_PORT 5432
 ENV PG_DATABASE otp
+ENV PG_SCHEMA public
 ENV PG_USER postgres
 ENV PG_PASSWORD postgres
-ENV OTP_HOST otp
 ENV OTP_QUEUE_URL ''
 ENV OTP_SMS_URL ''
 ENV OTP_SMS_WORKER ''
@@ -64,6 +64,7 @@ ENV OTP_EMAIL_URL ''
 ENV OTP_EMAIL_WORKER ''
 ENV PHP_PM_MAX_CHILDREN 10
 ENV PHP_PM_MAX_REQUESTS 500
+ENV DEV false
 
 EXPOSE 80
 

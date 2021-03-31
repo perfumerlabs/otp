@@ -39,14 +39,14 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildLimitQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildLimitQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildLimit findOne(ConnectionInterface $con = null) Return the first ChildLimit matching the query
+ * @method     ChildLimit|null findOne(ConnectionInterface $con = null) Return the first ChildLimit matching the query
  * @method     ChildLimit findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLimit matching the query, or a new ChildLimit object populated from the query conditions when no match is found
  *
- * @method     ChildLimit findOneById(int $id) Return the first ChildLimit filtered by the id column
- * @method     ChildLimit findOneByChannel(int $channel) Return the first ChildLimit filtered by the channel column
- * @method     ChildLimit findOneByMeasure(int $measure) Return the first ChildLimit filtered by the measure column
- * @method     ChildLimit findOneByRate(int $rate) Return the first ChildLimit filtered by the rate column
- * @method     ChildLimit findOneByMinutes(int $minutes) Return the first ChildLimit filtered by the minutes column *
+ * @method     ChildLimit|null findOneById(int $id) Return the first ChildLimit filtered by the id column
+ * @method     ChildLimit|null findOneByChannel(int $channel) Return the first ChildLimit filtered by the channel column
+ * @method     ChildLimit|null findOneByMeasure(int $measure) Return the first ChildLimit filtered by the measure column
+ * @method     ChildLimit|null findOneByRate(int $rate) Return the first ChildLimit filtered by the rate column
+ * @method     ChildLimit|null findOneByMinutes(int $minutes) Return the first ChildLimit filtered by the minutes column *
 
  * @method     ChildLimit requirePk($key, ConnectionInterface $con = null) Return the ChildLimit by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLimit requireOne(ConnectionInterface $con = null) Return the first ChildLimit matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found

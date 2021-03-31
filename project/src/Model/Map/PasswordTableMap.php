@@ -24,7 +24,6 @@ use Propel\Runtime\Map\TableMapTrait;
  * For example, the createSelectSql() method checks the type of a given column used in an
  * ORDER BY clause to know whether it needs to apply SQL to make the ORDER BY case-insensitive
  * (i.e. if it's a text column type).
- *
  */
 class PasswordTableMap extends TableMap
 {
@@ -142,6 +141,71 @@ class PasswordTableMap extends TableMap
         self::TYPE_FIELDNAME     => array('id' => 0, 'channel' => 1, 'target' => 2, 'password' => 3, 'ip' => 4, 'expire_at' => 5, 'created_at' => 6, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
     );
+
+    /**
+     * Holds a list of column names and their normalized version.
+     *
+     * @var string[]
+     */
+    protected $normalizedColumnNameMap = [
+
+        'Id' => 'ID',
+        'Password.Id' => 'ID',
+        'id' => 'ID',
+        'password.id' => 'ID',
+        'PasswordTableMap::COL_ID' => 'ID',
+        'COL_ID' => 'ID',
+        'id' => 'ID',
+        'otp_password.id' => 'ID',
+        'Channel' => 'CHANNEL',
+        'Password.Channel' => 'CHANNEL',
+        'channel' => 'CHANNEL',
+        'password.channel' => 'CHANNEL',
+        'PasswordTableMap::COL_CHANNEL' => 'CHANNEL',
+        'COL_CHANNEL' => 'CHANNEL',
+        'channel' => 'CHANNEL',
+        'otp_password.channel' => 'CHANNEL',
+        'Target' => 'TARGET',
+        'Password.Target' => 'TARGET',
+        'target' => 'TARGET',
+        'password.target' => 'TARGET',
+        'PasswordTableMap::COL_TARGET' => 'TARGET',
+        'COL_TARGET' => 'TARGET',
+        'target' => 'TARGET',
+        'otp_password.target' => 'TARGET',
+        'Password' => 'PASSWORD',
+        'Password.Password' => 'PASSWORD',
+        'password' => 'PASSWORD',
+        'password.password' => 'PASSWORD',
+        'PasswordTableMap::COL_PASSWORD' => 'PASSWORD',
+        'COL_PASSWORD' => 'PASSWORD',
+        'password' => 'PASSWORD',
+        'otp_password.password' => 'PASSWORD',
+        'Ip' => 'IP',
+        'Password.Ip' => 'IP',
+        'ip' => 'IP',
+        'password.ip' => 'IP',
+        'PasswordTableMap::COL_IP' => 'IP',
+        'COL_IP' => 'IP',
+        'ip' => 'IP',
+        'otp_password.ip' => 'IP',
+        'ExpireAt' => 'EXPIRE_AT',
+        'Password.ExpireAt' => 'EXPIRE_AT',
+        'expireAt' => 'EXPIRE_AT',
+        'password.expireAt' => 'EXPIRE_AT',
+        'PasswordTableMap::COL_EXPIRE_AT' => 'EXPIRE_AT',
+        'COL_EXPIRE_AT' => 'EXPIRE_AT',
+        'expire_at' => 'EXPIRE_AT',
+        'otp_password.expire_at' => 'EXPIRE_AT',
+        'CreatedAt' => 'CREATED_AT',
+        'Password.CreatedAt' => 'CREATED_AT',
+        'createdAt' => 'CREATED_AT',
+        'password.createdAt' => 'CREATED_AT',
+        'PasswordTableMap::COL_CREATED_AT' => 'CREATED_AT',
+        'COL_CREATED_AT' => 'CREATED_AT',
+        'created_at' => 'CREATED_AT',
+        'otp_password.created_at' => 'CREATED_AT',
+    ];
 
     /** The enumerated values for this table */
     protected static $enumValueSets = array(
@@ -379,6 +443,38 @@ class PasswordTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.ip');
             $criteria->addSelectColumn($alias . '.expire_at');
             $criteria->addSelectColumn($alias . '.created_at');
+        }
+    }
+
+    /**
+     * Remove all the columns needed to create a new object.
+     *
+     * Note: any columns that were marked with lazyLoad="true" in the
+     * XML schema will not be removed as they are only loaded on demand.
+     *
+     * @param Criteria $criteria object containing the columns to remove.
+     * @param string   $alias    optional table alias
+     * @throws PropelException Any exceptions caught during processing will be
+     *                         rethrown wrapped into a PropelException.
+     */
+    public static function removeSelectColumns(Criteria $criteria, $alias = null)
+    {
+        if (null === $alias) {
+            $criteria->removeSelectColumn(PasswordTableMap::COL_ID);
+            $criteria->removeSelectColumn(PasswordTableMap::COL_CHANNEL);
+            $criteria->removeSelectColumn(PasswordTableMap::COL_TARGET);
+            $criteria->removeSelectColumn(PasswordTableMap::COL_PASSWORD);
+            $criteria->removeSelectColumn(PasswordTableMap::COL_IP);
+            $criteria->removeSelectColumn(PasswordTableMap::COL_EXPIRE_AT);
+            $criteria->removeSelectColumn(PasswordTableMap::COL_CREATED_AT);
+        } else {
+            $criteria->removeSelectColumn($alias . '.id');
+            $criteria->removeSelectColumn($alias . '.channel');
+            $criteria->removeSelectColumn($alias . '.target');
+            $criteria->removeSelectColumn($alias . '.password');
+            $criteria->removeSelectColumn($alias . '.ip');
+            $criteria->removeSelectColumn($alias . '.expire_at');
+            $criteria->removeSelectColumn($alias . '.created_at');
         }
     }
 
