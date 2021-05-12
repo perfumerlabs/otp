@@ -17,6 +17,8 @@ OTP_SMS_URL_SED=${OTP_SMS_URL//\//\\\/}
 OTP_SMS_URL_SED=${OTP_SMS_URL_SED//\./\\\.}
 OTP_EMAIL_URL_SED=${OTP_EMAIL_URL//\//\\\/}
 OTP_EMAIL_URL_SED=${OTP_EMAIL_URL_SED//\./\\\.}
+PG_REAL_HOST_SED=${PG_REAL_HOST//\//\\\/}
+PG_REAL_HOST_SED=${PG_REAL_HOST_SED//\./\\\.}
 PG_HOST_SED=${PG_HOST//\//\\\/}
 PG_HOST_SED=${PG_HOST_SED//\./\\\.}
 PG_PASSWORD_SED=${PG_PASSWORD//\//\\\/}
@@ -44,6 +46,7 @@ if [ $DEV != 'true' ]; then
   sed -i "s/OTP_SMS_WORKER/$OTP_SMS_WORKER/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/OTP_EMAIL_URL/$OTP_EMAIL_URL_SED/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/OTP_EMAIL_WORKER/$OTP_EMAIL_WORKER/g" /opt/otp/src/Resource/config/resources_shared.php
+  sed -i "s/PG_REAL_HOST/$PG_REAL_HOST_SED/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/PG_HOST/$PG_HOST_SED/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/PG_PORT/$PG_PORT/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/PG_SCHEMA/$PG_SCHEMA/g" /opt/otp/src/Resource/config/resources_shared.php
@@ -67,6 +70,6 @@ fi
 
 set -x \
 && cd /opt/otp \
-&& sudo -u otp php cli framework propel/migrate
+&& sudo -u otp php cli otp startup
 
 touch /node_status_inited

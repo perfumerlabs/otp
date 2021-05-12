@@ -16,14 +16,13 @@ docker run \
 -e OTP_EMAIL_URL="http://email" \
 -e OTP_EMAIL_WORKER=email \
 -e PG_HOST=db \
+-e PG_REAL_HOST=db \
 -e PG_PORT=5432 \
 -e PG_DATABASE=otp_db \
 -e PG_USER=user \
 -e PG_PASSWORD=password \
--d perfumerlabs/otp:v2.1.0
+-d perfumerlabs/otp:v2.2.0
 ```
-
-Database must be created before container startup.
 
 Environment variables
 =====================
@@ -35,7 +34,8 @@ Environment variables
 - OTP_EMAIL_WORKER - worker that handles email queueing. Required.
 - PHP_PM_MAX_CHILDREN - number of FPM workers. Default value is 10.
 - PHP_PM_MAX_REQUESTS - number of FPM max requests. Default value is 500.
-- PG_HOST - PostgreSQL host. Required.
+- PG_HOST - PostgreSQL connection host. Required.
+- PG_REAL_HOST - PostgreSQL database instance host (not PgBouncer). Required.
 - PG_PORT - PostgreSQL port. Default value is 5432.
 - PG_DATABASE - PostgreSQL database name. Required.
 - PG_SCHEMA - PostgreSQL database schema. Default is "public".
@@ -284,3 +284,15 @@ Response example:
     "status": true
 }
 ```
+
+Software
+========
+
+1. Ubuntu 18.04 Bionic
+3. Nginx 1.20
+4. PHP 7.4
+
+Contributing
+============
+
+Feel free to make any pull requests.

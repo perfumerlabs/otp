@@ -1,8 +1,12 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
-LABEL authors="Ilyas Makashev mehmatovec@gmail.com"
+LABEL authors="Ilyas Makashev <mehmatovec@gmail.com>"
+
+ENV TZ 'UTC'
 
 RUN set -x \
+    && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone \
     && apt-get update \
     && apt-get install -y \
         ca-certificates \
@@ -11,10 +15,10 @@ RUN set -x \
         gnupg2 \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -s /bin/bash -m otp \
-    && echo "deb http://nginx.org/packages/ubuntu/ xenial nginx" > /etc/apt/sources.list.d/nginx.list \
-    && echo "deb-src http://nginx.org/packages/ubuntu/ xenial nginx" >> /etc/apt/sources.list.d/nginx.list \
-    && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main" > /etc/apt/sources.list.d/php.list \
-    && echo "deb-src http://ppa.launchpad.net/ondrej/php/ubuntu xenial main" >> /etc/apt/sources.list.d/php.list \
+    && echo "deb http://nginx.org/packages/ubuntu/ bionic nginx" > /etc/apt/sources.list.d/nginx.list \
+    && echo "deb-src http://nginx.org/packages/ubuntu/ bionic nginx" >> /etc/apt/sources.list.d/nginx.list \
+    && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu bionic main" > /etc/apt/sources.list.d/php.list \
+    && echo "deb-src http://ppa.launchpad.net/ondrej/php/ubuntu bionic main" >> /etc/apt/sources.list.d/php.list \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62 \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
     && apt update \
@@ -51,6 +55,7 @@ RUN set -x\
     && chmod +x /usr/local/bin/entrypoint.sh \
     && chmod +x /usr/local/bin/init.sh
 
+ENV PG_REAL_HOST ''
 ENV PG_HOST postgresql
 ENV PG_PORT 5432
 ENV PG_DATABASE otp

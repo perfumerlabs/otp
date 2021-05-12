@@ -16,4 +16,13 @@ return [
         'migration_dir' => 'src/Resource/propel/migration',
         'migration_table' => 'otp_propel_migration',
     ],
+    'pg' => [
+        'real_host' => 'db',
+        'host' => 'db',
+        'port' => '5432',
+        'database' => 'otp',
+        'schema' => 'public',
+        'user' => 'postgres',
+        'password' => 'postgres',
+    ],
 ];
