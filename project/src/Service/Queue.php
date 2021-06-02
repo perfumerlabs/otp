@@ -16,12 +16,15 @@ class Queue
 
     private $email_worker;
 
+    private $call_worker;
+
     public function __construct(
         $queue_url,
         $sms_url,
         $email_url,
         $sms_worker,
-        $email_worker
+        $email_worker,
+        $call_worker
     )
     {
         $this->queue_url = $queue_url;
@@ -29,6 +32,7 @@ class Queue
         $this->email_url = $email_url;
         $this->sms_worker = $sms_worker;
         $this->email_worker = $email_worker;
+        $this->call_worker = $call_worker;
     }
 
     public function sendSms($phone, $message): bool
@@ -47,6 +51,36 @@ class Queue
                         'json' => [
                             'phones' => $phone,
                             'message' => $message,
+                            'type' => 'sms',
+                            'force' => true,
+                        ]
+                    ]
+                ]
+            );
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function sendCall($phone, $password): bool
+    {
+        try {
+            $client = new Client();
+            $client->post($this->queue_url . '/task',
+                [
+                    'connect_timeout' => 15,
+                    'read_timeout'    => 15,
+                    'timeout'         => 15,
+                    'json' => [
+                        'url' => sprintf('%s/sms', $this->sms_url),
+                        'method' => 'post',
+                        'worker' => $this->call_worker,
+                        'json' => [
+                            'phones' => $phone,
+                            'message' => $password,
+                            'type' => 'call',
                             'force' => true,
                         ]
                     ]

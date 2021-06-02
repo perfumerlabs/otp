@@ -2,10 +2,11 @@
 <database name="otp" defaultIdMethod="native" namespace="Otp\Model">
     <table name="otp_password" phpName="Password">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
-        <column name="channel" type="enum" valueSet="sms,email"/> <!-- Type of OTP sending channel -->
+        <column name="channel" type="enum" valueSet="sms,email,call"/> <!-- Type of OTP sending channel -->
         <!--
         sms - via SMS
         email - via emails
+        call - via call
         -->
         <column name="target" type="varchar" size="255"/> <!-- Email or phone to send to -->
         <column name="password" type="varchar" size="255"/> <!-- Value of OTP -->
@@ -32,7 +33,7 @@
 
     <table name="otp_limit" phpName="Limit">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
-        <column name="channel" type="enum" valueSet="sms,email" required="true"/> <!-- Type of OTP sending channel -->
+        <column name="channel" type="enum" valueSet="sms,email,call" required="true"/> <!-- Type of OTP sending channel -->
         <column name="measure" type="enum" valueSet="target,ip" required="true"/> <!-- Type of measuring: by ip or emails/phones -->
         <column name="rate" type="integer" required="true"/> <!-- hoe many times max -->
         <column name="minutes" type="integer" required="true"/> <!-- in how many minutes -->

@@ -15,6 +15,8 @@ OTP_QUEUE_URL_SED=${OTP_QUEUE_URL//\//\\\/}
 OTP_QUEUE_URL_SED=${OTP_QUEUE_URL_SED//\./\\\.}
 OTP_SMS_URL_SED=${OTP_SMS_URL//\//\\\/}
 OTP_SMS_URL_SED=${OTP_SMS_URL_SED//\./\\\.}
+OTP_CALL_URL_SED=${OTP_SMS_URL//\//\\\/}
+OTP_CALL_URL_SED=${OTP_SMS_URL_SED//\./\\\.}
 OTP_EMAIL_URL_SED=${OTP_EMAIL_URL//\//\\\/}
 OTP_EMAIL_URL_SED=${OTP_EMAIL_URL_SED//\./\\\.}
 PG_REAL_HOST_SED=${PG_REAL_HOST//\//\\\/}
@@ -44,6 +46,7 @@ if [ $DEV != 'true' ]; then
   sed -i "s/OTP_QUEUE_URL/$OTP_QUEUE_URL_SED/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/OTP_SMS_URL/$OTP_SMS_URL_SED/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/OTP_SMS_WORKER/$OTP_SMS_WORKER/g" /opt/otp/src/Resource/config/resources_shared.php
+  sed -i "s/OTP_CALL_WORKER/$OTP_CALL_WORKER/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/OTP_EMAIL_URL/$OTP_EMAIL_URL_SED/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/OTP_EMAIL_WORKER/$OTP_EMAIL_WORKER/g" /opt/otp/src/Resource/config/resources_shared.php
   sed -i "s/PG_REAL_HOST/$PG_REAL_HOST_SED/g" /opt/otp/src/Resource/config/resources_shared.php

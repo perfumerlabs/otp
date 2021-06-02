@@ -113,6 +113,7 @@ class PasswordTableMap extends TableMap
     /** The enumerated values for the channel field */
     const COL_CHANNEL_SMS = 'sms';
     const COL_CHANNEL_EMAIL = 'email';
+    const COL_CHANNEL_CALL = 'call';
 
     /**
      * holds an array of fieldnames
@@ -212,6 +213,7 @@ class PasswordTableMap extends TableMap
                 PasswordTableMap::COL_CHANNEL => array(
                             self::COL_CHANNEL_SMS,
             self::COL_CHANNEL_EMAIL,
+            self::COL_CHANNEL_CALL,
         ),
     );
 
@@ -259,6 +261,7 @@ class PasswordTableMap extends TableMap
         $this->getColumn('channel')->setValueSet(array (
   0 => 'sms',
   1 => 'email',
+  2 => 'call',
 ));
         $this->addColumn('target', 'Target', 'VARCHAR', false, 255, null);
         $this->addColumn('password', 'Password', 'VARCHAR', false, 255, null);

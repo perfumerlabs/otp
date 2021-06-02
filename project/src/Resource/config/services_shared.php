@@ -16,6 +16,7 @@ return [
             '@otp/email_url',
             '@otp/sms_worker',
             '@otp/email_worker',
+            '@otp/call_worker',
         ]
     ],
 

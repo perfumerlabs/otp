@@ -7,10 +7,12 @@ return [
             return \FastRoute\simpleDispatcher(function(\FastRoute\RouteCollector $r) {
                 $r->addRoute('POST', '/sms', 'sms.post');
                 $r->addRoute('POST', '/email', 'email.post');
+                $r->addRoute('POST', '/call', 'call.post');
                 $r->addRoute('GET', '/sms/check', 'sms/check.get');
                 $r->addRoute('GET', '/email/check', 'email/check.get');
                 $r->addRoute('POST', '/limit/sms', 'limit/sms.post');
                 $r->addRoute('POST', '/limit/email', 'limit/email.post');
+                $r->addRoute('POST', '/limit/call', 'limit/call.post');
             });
         }
     ],

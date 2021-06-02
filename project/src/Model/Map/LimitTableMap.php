@@ -103,6 +103,7 @@ class LimitTableMap extends TableMap
     /** The enumerated values for the channel field */
     const COL_CHANNEL_SMS = 'sms';
     const COL_CHANNEL_EMAIL = 'email';
+    const COL_CHANNEL_CALL = 'call';
 
     /** The enumerated values for the measure field */
     const COL_MEASURE_TARGET = 'target';
@@ -190,6 +191,7 @@ class LimitTableMap extends TableMap
                 LimitTableMap::COL_CHANNEL => array(
                             self::COL_CHANNEL_SMS,
             self::COL_CHANNEL_EMAIL,
+            self::COL_CHANNEL_CALL,
         ),
                 LimitTableMap::COL_MEASURE => array(
                             self::COL_MEASURE_TARGET,
@@ -241,6 +243,7 @@ class LimitTableMap extends TableMap
         $this->getColumn('channel')->setValueSet(array (
   0 => 'sms',
   1 => 'email',
+  2 => 'call',
 ));
         $this->addColumn('measure', 'Measure', 'ENUM', true, null, null);
         $this->getColumn('measure')->setValueSet(array (
