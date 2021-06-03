@@ -29,6 +29,7 @@ return [
         'queue_url' => 'OTP_QUEUE_URL',
         'sms_url' => 'OTP_SMS_URL',
         'sms_worker' => 'OTP_SMS_WORKER',
+        'call_worker' => 'OTP_CALL_WORKER',
         'email_url' => 'OTP_EMAIL_URL',
         'email_worker' => 'OTP_EMAIL_WORKER',
     ],
