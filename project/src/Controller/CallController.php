@@ -82,9 +82,18 @@ class CallController extends LayoutController
 
             error_log("SMS OTP created $password for $phone");
 
+            $password = str_split($password);
+            $message = '';
+            foreach ($password as $key => $item){
+                $message .= $item;
+                if($key !== count($password) - 1){
+                    $message .= ' ';
+                }
+            }
+
             /** @var Queue $queue */
             $queue = $this->s('queue');
-            $queue->sendCall($phone, $password);
+            $queue->sendCall($phone, $message);
         } else {
             error_log("SMS OTP for $phone did not pass limits: $not_passed_measure - $not_passed_rate in $not_passed_minutes minutes");
 
