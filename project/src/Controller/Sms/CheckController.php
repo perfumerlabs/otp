@@ -20,7 +20,7 @@ class CheckController extends LayoutController
         $valid = PasswordQuery::create()
             ->filterByPassword($password)
             ->filterByTarget($phone)
-            ->filterByChannel(PasswordTableMap::COL_CHANNEL_SMS)
+            ->filterByChannel([PasswordTableMap::COL_CHANNEL_SMS, PasswordTableMap::COL_CHANNEL_CALL], Criteria::IN)
             ->filterByExpireAt(new \DateTime(), Criteria::GREATER_THAN)
             ->exists();
 
