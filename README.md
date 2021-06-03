@@ -101,6 +101,53 @@ Failure response examples:
 }
 ```
 
+### Send call OTP
+
+`POST /call`
+
+Parameters (json):
+- ip [string,optional] - IP of requester. Required, if ip limits are set.
+- phone [string,required] - phone to send to, without "+".
+- password [string,required] - one time password.
+- lifetime [integer,required] - lifetime of password, in seconds.
+
+Request example:
+
+```json
+{
+    "ip": "123.123.123.123",
+    "phone": "77011234567",
+    "password": "12345",
+    "lifetime": 300
+}
+```
+
+Success response example:
+
+```json
+{
+    "status": true
+}
+```
+
+Failure response examples:
+
+```json
+{
+    "status": false,
+    "status_code": "ip_limit",
+    "message": "IP limit has been reached"
+}
+```
+
+```json
+{
+    "status": false,
+    "status_code": "phone_limit",
+    "message": "Phone limit has been reached"
+}
+```
+
 ### Send email OTP
 
 `POST /email`
@@ -206,6 +253,47 @@ Response example:
 ### Set SMS limits
 
 `POST /limit/sms`
+
+Parameters (json):
+- ips [array,optional] - set of rules for IP.
+- phones [array,optional] - set of rules for phones.
+
+Each rule consists of minutes and rate parameter which means "how many tries allowed for number of minutes".
+
+Request example:
+
+```json
+{
+    "ips": [
+        {
+            "minutes": 10,
+            "rate": 3
+        },
+        {
+            "minutes": 60,
+            "rate": 10
+        }
+    ],
+    "phones": [
+        {
+            "minutes": 10,
+            "rate": 3
+        }
+    ]
+}
+```
+
+Response example:
+
+```json
+{
+    "status": true
+}
+```
+
+### Set CALL limits
+
+`POST /limit/call`
 
 Parameters (json):
 - ips [array,optional] - set of rules for IP.
